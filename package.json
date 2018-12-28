@@ -1,0 +1,21 @@
+{
+  "name": "carta",
+  "version": "0.1.0",
+  "description": "Reverse engineer binary files",
+  "main": "lib/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+	"binary",
+	"reverse-engineer"
+  ],
+  "author": "Andrew Morcom",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "carta-backend": "0.1.0"
+  },
+  "devDependencies": {
+    "electron": "^4.0.0"
+  }
+}

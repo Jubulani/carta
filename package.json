@@ -13,6 +13,7 @@
   "author": "Andrew Morcom",
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "carta-backend": "https://github.com/Jubulani/carta-backend.git"
   },
   "devDependencies": {
     "electron": "^4.0.0"

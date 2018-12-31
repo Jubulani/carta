@@ -8,7 +8,8 @@ btn.addEventListener('click', (e:Event) => dialog.showOpenDialog(
     (filepaths) => {
         try {
             // Only pass the first filepath for now
-            Backend.openFile(filepaths[0]);
+            var result = Backend.openFile(filepaths[0]);
+            console.log(result);
         } catch (err) {
             alert(err);
         }

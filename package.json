@@ -16,6 +16,7 @@
     "carta-backend": "https://github.com/Jubulani/carta-backend.git"
   },
   "devDependencies": {
-    "electron": "^4.0.0"
+    "electron": "^4.0.0",
+    "typescript": "^3.2.2"
   }
 }

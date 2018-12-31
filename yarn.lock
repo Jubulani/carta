@@ -149,7 +149,7 @@ camelcase@^2.0.0:
 
 "carta-backend@https://github.com/Jubulani/carta-backend.git":
   version "0.1.0"
-  resolved "https://github.com/Jubulani/carta-backend.git#681a71d929425a44a8083e1511d250ae763fcdd8"
+  resolved "https://github.com/Jubulani/carta-backend.git#0c72b2d70032f931b8ae4478474b0fead9be0d41"
   dependencies:
     neon-cli "^0.2.0"
 

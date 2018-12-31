@@ -19,3 +19,5 @@ Reverse engineer binary files
 
 ## Start the project
 ` yarn start ` or `npm start`
+
+:tada:

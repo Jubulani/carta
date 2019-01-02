@@ -4,7 +4,12 @@ const Backend = require('carta-backend')
 
 let btn = document.getElementById('file-selector');
 btn.addEventListener('click', (e:Event) => dialog.showOpenDialog(
-    { properties: ['openFile', 'openDirectory',] },
+    { 
+        properties: ['openFile',],
+        filters: [
+            { name: 'All Files', extensions: ['*'] }
+        ]
+    },
     (filepaths) => {
         try {
             // Only pass the first filepath for now

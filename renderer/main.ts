@@ -1,6 +1,7 @@
 const { dialog } = require('electron').remote
 const Backend = require('carta-backend')
 
+Backend.init();
 
 let btn = document.getElementById('file-selector');
 btn.addEventListener('click', (e:Event) => dialog.showOpenDialog(

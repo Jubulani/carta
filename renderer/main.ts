@@ -1,8 +1,15 @@
 const { dialog } = require('electron').remote
 const Backend = require('carta-backend')
 
+Backend.init();
+
 let eventFunc = () => dialog.showOpenDialog(
-    { properties: ['openFile', 'openDirectory',] },
+    {
+        properties: ['openFile',],
+        filters: [
+            { name: 'All Files', extensions: ['*'] }
+        ]
+    },
     (filepaths) => {
         try {
             // Only pass the first filepath for now

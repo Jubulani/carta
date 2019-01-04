@@ -1,18 +1,22 @@
 const { dialog } = require('electron').remote
 const Backend = require('carta-backend')
 
-
-let btn = document.getElementById('file-selector');
-btn.addEventListener('click', (e:Event) => dialog.showOpenDialog(
+let eventFunc = () => dialog.showOpenDialog(
     { properties: ['openFile', 'openDirectory',] },
     (filepaths) => {
         try {
             // Only pass the first filepath for now
-            var result = Backend.openFile(filepaths[0]);
-            console.log(result);
+            if(filepaths) {
+                var result = Backend.openFile(filepaths[0]);
+                console.log(result);
+            } else {
+                console.log("No filenames returned")
+            }
         } catch (err) {
-            alert(err);
+            console.log(err);
         }
     }
     )
-);
+
+let uploadArea = document.getElementById('file-upload-area');
+uploadArea.addEventListener('click', eventFunc)

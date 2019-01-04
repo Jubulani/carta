@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <link href="css/style.css" type="text/css" rel='stylesheet' />
   </head>
   <body>
     <h1>Hello World!</h1>
@@ -11,7 +12,9 @@
     Chromium <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>.
 
-  <br/>Choose a file: <button id='file-selector'>Browse..</button>
+  <div id='file-upload-area'>
+    <div id='message'>Drop files here or click to upload</div>
+  </div>
 
     <script>
       // You can also require other files to run in this process

@@ -20,4 +20,7 @@ Reverse engineer binary files
 ## Start the project
 ` yarn start ` or `npm start`
 
+## To run the dev version (including watching for changes in `.ts` files)
+` yarn develop` or `npm develop`
+
 :tada:

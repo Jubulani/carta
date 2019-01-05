@@ -8,7 +8,6 @@ div#file-upload-area {
     background-color: #fff;
     border: 2px dashed #0087f7;
     margin: 2% auto;
-
 }
 
 div#file-upload-area div#message {
@@ -17,6 +16,4 @@ div#file-upload-area div#message {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 4em 0;
     text-align: center;
-
-
 }

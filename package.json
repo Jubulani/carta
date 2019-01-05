@@ -2,9 +2,11 @@
   "name": "carta",
   "version": "0.1.0",
   "description": "Reverse engineer binary files",
-  "main": "lib/main.js",
+  "main": "dist/lib/main.js",
   "scripts": {
-    "start": "tsc && electron ."
+    "start": "electron .",
+    "build": "tsc",
+    "develop": "nodemon -e js,ts --watch ./lib --watch ./renderer --exec \"yarn build && yarn start\""
   },
   "keywords": [
     "binary",
@@ -17,6 +19,8 @@
   },
   "devDependencies": {
     "electron": "^4.0.0",
+    "electron-reload": "^1.4.0",
+    "nodemon": "^1.18.9",
     "typescript": "^3.2.2"
   }
 }

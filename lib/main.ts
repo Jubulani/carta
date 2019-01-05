@@ -1,5 +1,19 @@
+const path = require('path')
+
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
+
+const rootDir = __dirname.slice(0,__dirname.length-4-5)
+
+//Files to soft reload without exiting the app
+const watchList = [
+  path.join(rootDir, 'index.html'),
+  path.join(rootDir, 'css'),
+]
+
+require('electron-reload')(watchList, {
+  electron: `${rootDir}/node_modules/electron`
+})
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

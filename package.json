@@ -4,9 +4,8 @@
   "description": "Reverse engineer binary files",
   "main": "dist/lib/main.js",
   "scripts": {
-    "start": "electron .",
-    "build": "tsc",
-    "develop": "nodemon -e js,ts --watch ./lib --watch ./renderer --exec \"yarn build && yarn start\""
+    "start": "tsc && electron .",
+    "develop": "nodemon -e js,ts --watch ./lib --watch ./renderer --exec \"yarn start\""
   },
   "keywords": [
     "binary",

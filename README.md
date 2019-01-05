@@ -16,13 +16,7 @@ Reverse engineer binary files
 
 ` yarn install ` or `npm install`
 
-5.  Build
-
-`yarn build` or `npm build`
-
-
 ## Start the project
-`yarn build` or `npm build` (to pickup any changes made in `.ts` files)
 
 ` yarn start ` or `npm start`
 

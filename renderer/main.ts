@@ -14,8 +14,11 @@ let eventFunc = () => dialog.showOpenDialog(
         try {
             // Only pass the first filepath for now
             if(filepaths) {
-                var result = Backend.openFile(filepaths[0]);
-                console.log(result);
+                var handle = Backend.openFile(filepaths[0]);
+                console.log(`Using handle: ${handle}`);
+
+                var arr = Backend.getBinaryData(handle, 10);
+                console.log(`Have data: ${arr}`);
             } else {
                 console.log("No filenames returned")
             }

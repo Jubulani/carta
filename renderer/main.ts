@@ -59,7 +59,11 @@ let clickEventFunc = () => dialog.showOpenDialog(
     }
 )
 
+// Areas
+
 let uploadArea = document.getElementById('file-upload-area');
+let infoBoxes = document.getElementsByClassName('info-box');
+//Events
 
 // We need to preventDefaults for these 4 events for drag and drop
 // to work correctly

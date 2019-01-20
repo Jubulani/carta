@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <link href="css/style.css" type="text/css" rel='stylesheet' />
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+  <link href="css/style.css" type="text/css" rel='stylesheet' />
+</head>
+
+<body>
+  <header></header>
+  <div class='git-container'>
     <div id='main-container'>
-      <div id='info-boxes-container' >
+      <div id='info-boxes-container'>
         <div class='info-box' id='info-box-1'>
           info box 1
         </div>
@@ -23,13 +22,16 @@
           info box 3
         </div>
       </div>
-    <div id='file-upload-area'>
-      <div id='message'>Drop files here or click to upload</div>
+      <div id='file-upload-area'>
+        <div id='message'>Drop files here or click to upload</div>
+      </div>
     </div>
   </div>
-    <script>
-      // You can also require other files to run in this process
-      require('./dist/renderer/main.js')
-    </script>
-  </body>
+  <footer></footer>
+  <script>
+    // You can also require other files to run in this process
+    require('./dist/renderer/main.js')
+  </script>
+</body>
+
 </html>

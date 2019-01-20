@@ -1,5 +1,20 @@
 body {
-    background-color: #dddddd
+    background-color: #dddddd;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+header {
+    flex: 0 0 80px;
+    background-color: lightgray;
+}
+
+footer {
+    flex: 0 0 1.5em;
+    margin-top: auto; /* pin footer to bottom */
+    background-color: lightgray;
 }
 
 div#file-upload-area {
@@ -31,6 +46,9 @@ div#file-upload-area div#message {
     background-color: white;
     border: 1px solid #123;
     border-collapse: collapse;
+}
 
-
+.grid-container {
+    width: 100%;
+    height: 100%;
 }

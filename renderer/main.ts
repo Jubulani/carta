@@ -22,7 +22,7 @@ let processFiles = (filenames: string[]) => {
     return objects;
 }
 
-let makeArrayOfFilePaths = (fileList) : string[] => {
+let makeArrayOfFilePaths = (fileList): string[] => {
     /* A fileList looks like this:
     {
         0: {path: '/some/path/file0.txt', name: file0.txt ...},
@@ -35,8 +35,8 @@ let makeArrayOfFilePaths = (fileList) : string[] => {
 
     var filepaths = [];
 
-    for (var idx in fileList){
-        if(idx !== 'length' && idx !== 'item') {
+    for (var idx in fileList) {
+        if (idx !== 'length' && idx !== 'item') {
             filepaths.push(fileList[idx].path);
         }
     }
@@ -69,9 +69,9 @@ let infoBoxes = document.getElementsByClassName('info-box');
 // to work correctly
 ['dragenter', 'dragleave', 'dragover', 'drop'].forEach(eventName => {
     uploadArea.addEventListener(eventName, preventDefaults, false)
-    })
+})
 
-    function preventDefaults (e) {
+function preventDefaults(e) {
     e.preventDefault()
     e.stopPropagation()
 }

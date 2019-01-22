@@ -17,6 +17,10 @@ footer {
     background-color: lightgray;
 }
 
+.hidden {
+    display: none;
+}
+
 div#file-upload-area {
     background-color: #fff;
     border: 2px dashed #0087f7;

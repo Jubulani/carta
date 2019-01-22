@@ -1,25 +1,16 @@
-const { dialog } = require('electron').remote
-const Backend = require('carta-backend')
+'use strict';
 
-Backend.init();
+const { dialog } = require('electron').remote;
+import { BinFiles } from './BinFile';
+
+let binfiles = new BinFiles();
+
 
 let processFiles = (filenames: string[]) => {
     // Expects a list of string filepaths
-
-    let objects = {}
-
     filenames.forEach(filepath => {
-        var handle = Backend.openFile(filepath);
-        console.log(`Using handle: ${handle}`);
-
-        var arr = Backend.getBinaryData(handle, 10);
-        console.log(`Have data: ${arr}`);
-
-        objects[handle] = arr;
-
+        let b = binfiles.open_file(filepath);
     });
-
-    return objects;
 }
 
 let makeArrayOfFilePaths = (fileList): string[] => {
@@ -33,9 +24,9 @@ let makeArrayOfFilePaths = (fileList): string[] => {
     }
     */
 
-    var filepaths = [];
+    let filepaths = [];
 
-    for (var idx in fileList) {
+    for (let idx in fileList) {
         if (idx !== 'length' && idx !== 'item') {
             filepaths.push(fileList[idx].path);
         }
@@ -83,14 +74,8 @@ let dragLeave = () => {
     uploadArea.style.backgroundColor = 'white';
 }
 let drop = (event) => {
-    const objects = processFiles(makeArrayOfFilePaths(event.dataTransfer.files))
+    processFiles(makeArrayOfFilePaths(event.dataTransfer.files))
     uploadArea.style.backgroundColor = 'white';
-
-    var str = '';
-    for (var data in objects) {
-        str = str + objects[data] + '\n';
-    }
-    uploadArea.innerText = str;
 }
 
 uploadArea.addEventListener('click', clickEventFunc)

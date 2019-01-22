@@ -2,11 +2,11 @@ const path = require('path')
 const isDev = require('electron-is-dev');
 
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow } = require('electron')
 
 if (isDev) {
   console.log('Running Carta in dev mode!')
-  const rootDir = __dirname.slice(0,__dirname.length-4-5)
+  const rootDir = __dirname.slice(0, __dirname.length - 4 - 5)
   //Files to soft reload without exiting the app
   const watchList = [
     path.join(rootDir, 'index.html'),
@@ -21,11 +21,11 @@ if (isDev) {
 }
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow;
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600, webPreferences: {nodeIntegration: true}})
+  mainWindow = new BrowserWindow({ width: 1024, height: 768, webPreferences: { nodeIntegration: true } })
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')

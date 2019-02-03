@@ -32,12 +32,17 @@ class BinFile {
 
         node.innerHTML = Backend.getBinaryData(this.handle, 10);
 
-        let container = document.getElementById('info-boxes-container');
-        container.appendChild(node);
+        let fileUpload = document.getElementById('file-upload-area');
+        let container = document.getElementById('main-container');
+        container.insertBefore(node, fileUpload);
     }
 }
 
 function show_header_and_footer() {
     util.removeClassFromElement('header', 'hidden');
     util.removeClassFromElement('footer', 'hidden');
+
+    // Set the grid style appropriately for a visible header and footer
+    let gridParent = document.getElementById('html-body');
+    gridParent.style.gridTemplateRows = '60px auto 1.5em';
 }

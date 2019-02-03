@@ -78,7 +78,7 @@ let drop = (event) => {
     uploadArea.style.backgroundColor = 'white';
 }
 
-uploadArea.addEventListener('click', clickEventFunc)
-uploadArea.addEventListener('dragenter', dragEnter, false)
-uploadArea.addEventListener('dragleave', dragLeave, false)
-uploadArea.addEventListener('drop', drop, false)
+uploadArea.addEventListener('click', clickEventFunc);
+uploadArea.addEventListener('dragenter', dragEnter, false);
+uploadArea.addEventListener('dragleave', dragLeave, false);
+uploadArea.addEventListener('drop', drop, false);

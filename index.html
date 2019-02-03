@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'nonce-jmTmZpe9LxG7AdjFWawhHp'">
   <title>Hello World!</title>
   <link href="css/style.css" type="text/css" rel='stylesheet' />
 </head>
@@ -19,7 +20,7 @@
     </div>
   </div>
   <footer class="hidden"></footer>
-  <script>
+  <script nonce="jmTmZpe9LxG7AdjFWawhHp">
     // You can also require other files to run in this process
     require('./dist/renderer/main.js')
   </script>

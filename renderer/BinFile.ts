@@ -30,7 +30,16 @@ class BinFile {
         node.className = 'info-box';
         node.setAttribute('id', 'info-box-' + this.handle);
 
-        node.innerHTML = Backend.getBinaryData(this.handle, 10);
+        let data = Backend.getBinaryData(this.handle, 10);
+        data = data.map((item: number) => {
+            let r = item.toString(16);
+            if (r.length % 2) {
+                r = '0' + r;
+            }
+            return r;
+        })
+
+        node.innerHTML = data.join(' ');
 
         let fileUpload = document.getElementById('file-upload-area');
         let container = document.getElementById('main-container');

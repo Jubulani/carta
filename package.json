@@ -1,0 +1,21 @@
+{
+    "name": "carta",
+    "version": "0.1.0",
+    "description": "Reverse engineer binary files",
+    "main": "dist/lib/main.js",
+    "keywords": [
+        "binary",
+        "reverse-engineer"
+    ],
+    "author": "Andrew Morcom",
+    "license": "GPL-3.0-or-later",
+    "scripts": {
+        "build": "webpack"
+    },
+    "devDependencies": {
+        "ts-loader": "^5.3.3",
+        "typescript": "^3.2.4",
+        "webpack": "^4.29.5",
+        "webpack-cli": "^3.2.3"
+    }
+}

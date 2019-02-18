@@ -1,7 +1,6 @@
 'use strict';
 
-const { dialog } = require('electron').remote;
-import { BinFiles } from './BinFile';
+import { BinFiles } from './BinFile.ts';
 
 let binfiles = new BinFiles();
 
@@ -34,7 +33,7 @@ let makeArrayOfFilePaths = (fileList): string[] => {
     return filepaths
 }
 
-let clickEventFunc = () => dialog.showOpenDialog(
+/*let clickEventFunc = () => dialog.showOpenDialog(
     {
         properties: ['openFile', 'multiSelections'],
         filters: [
@@ -48,7 +47,7 @@ let clickEventFunc = () => dialog.showOpenDialog(
             console.log(err);
         }
     }
-)
+)*/
 
 // Areas
 
@@ -78,7 +77,7 @@ let drop = (event) => {
     uploadArea.style.backgroundColor = 'white';
 }
 
-uploadArea.addEventListener('click', clickEventFunc);
+//uploadArea.addEventListener('click', clickEventFunc);
 uploadArea.addEventListener('dragenter', dragEnter, false);
 uploadArea.addEventListener('dragleave', dragLeave, false);
 uploadArea.addEventListener('drop', drop, false);

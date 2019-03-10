@@ -11,7 +11,7 @@
     "license": "GPL-3.0-or-later",
     "scripts": {
         "build": "webpack --mode=production",
-        "dev": "webpack-dev-server"
+        "dev": "webpack --mode=development; webpack-dev-server"
     },
     "devDependencies": {
         "ts-loader": "^5.3.3",

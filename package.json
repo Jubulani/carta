@@ -10,7 +10,8 @@
     "author": "Andrew Morcom",
     "license": "GPL-3.0-or-later",
     "scripts": {
-        "build": "webpack"
+        "build": "webpack --mode=production",
+        "dev": "webpack --mode=development"
     },
     "devDependencies": {
         "ts-loader": "^5.3.3",

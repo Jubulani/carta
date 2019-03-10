@@ -2,10 +2,17 @@
   "compilerOptions": {
     "target": "es5",
     "outDir": "dist",
-	"noImplicitReturns": true,
-	"noFallthroughCasesInSwitch": true
+    "module": "esNext",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "strict": true,
+    "esModuleInterop": true
   },
   "include": [
-  	"web/ts/*"
+    "web/ts/*"
   ]
 }

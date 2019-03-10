@@ -11,12 +11,13 @@
     "license": "GPL-3.0-or-later",
     "scripts": {
         "build": "webpack --mode=production",
-        "dev": "webpack --mode=development"
+        "dev": "webpack-dev-server"
     },
     "devDependencies": {
         "ts-loader": "^5.3.3",
         "typescript": "^3.2.4",
         "webpack": "^4.29.5",
-        "webpack-cli": "^3.2.3"
+        "webpack-cli": "^3.2.3",
+        "webpack-dev-server": "^3.2.1"
     }
 }

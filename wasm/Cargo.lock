@@ -1,5 +1,5 @@
 [[package]]
-name = "backend"
+name = "carta_backend"
 version = "0.1.0"
 dependencies = [
  "wasm-bindgen 0.2.38 (registry+https://github.com/rust-lang/crates.io-index)",

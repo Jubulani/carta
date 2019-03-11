@@ -3,5 +3,5 @@ node_modules
 **/*.js
 **/*.js.map
 carta-backend.log
-backend/target/*
+wasm/target/*
 dist/*

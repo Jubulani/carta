@@ -1,5 +1,5 @@
 [package]
-name = "backend"
+name = "carta_backend"
 version = "0.1.0"
 authors = ["Andrew Morcom <jubulani@fastmail.fm>"]
 edition = "2018"

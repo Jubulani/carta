@@ -34,7 +34,11 @@ div#file-upload-area {
     width: 100%;
 }
 
-div#file-upload-area span#message {
+#file-upload {
+    display: none;
+}
+
+div#file-upload-area label {
     color: #777;
     font-size: 1.4em;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;

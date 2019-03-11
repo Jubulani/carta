@@ -1,12 +1,11 @@
-alert('This is Typescript again');
+// Start loading the wasm module asyncronously
+load_wasm();
 
-function start(mymod: typeof import("../wasm/pkg/carta_backend_bg")) {
-    console.log("All modules loaded");
+async function load_wasm() {
+    start_wasm(await import("../wasm/pkg/carta_backend_bg"));
+}
+
+function start_wasm(mymod: typeof import("../wasm/pkg/carta_backend_bg")) {
+    console.log("All wasm modules loaded");
     mymod.greet();
 }
-
-async function load() {
-    start(await import("../wasm/pkg/carta_backend_bg"));
-}
-
-load();

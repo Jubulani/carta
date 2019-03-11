@@ -3,11 +3,20 @@
 
 <head>
     <meta charset="utf-8" />
+    <META HTTP-EQUIV='Content-Security-Policy'
+        CONTENT="default-src 'self' ; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self'; img-src 'self'" />
+    <link href="style.css" type="text/css" rel='stylesheet' />
     <script type="text/javascript" src="main.js"></script>
 </head>
 
 <body>
-    Hello world
+    <header class="hidden"></header>
+    <div id="main-container">
+        <div id="file-upload-area">
+            <span id="message">Drop files here or click to open</div>
+    </div>
+    </div>
+    <footer class="hidden"></footer>
 </body>
 
 </html>

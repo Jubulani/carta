@@ -1,7 +1,5 @@
 node_modules
 .vscode
-**/*.js
-**/*.js.map
 carta-backend.log
 wasm/target/*
 dist/*

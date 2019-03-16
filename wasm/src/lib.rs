@@ -5,13 +5,12 @@ use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub fn init() {
-    console_log::init_with_level(Level::Trace).expect("error initializing log");
 
-    trace!("Trace log");
-    debug!("Debug log");
-    info!("Info log");
-    warn!("Warning log");
-    error!("Error log");
+    // Set panic hook to print panic messages to browser console
+    std::panic::set_hook(Box::new(console_error_panic_hook::hook));
+
+    // Init logging to browser console
+    console_log::init_with_level(Level::Trace).expect("error initializing log");
 }
 
 #[cfg(test)]

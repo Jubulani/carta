@@ -12,15 +12,19 @@ Reverse engineer binary files
 
 `source $HOME/.cargo/env `
 
-4. Install dependencies
+4. Install `wasm-pack` by visiting the following URL:
 
-` yarn install ` or `npm install`
+`https://rustwasm.github.io/wasm-pack/installer/`
 
-## Start the project
+5. Run `wasm-pack` to build the wasm file
 
-` yarn start ` or `npm start`
+`wasm-pack build ./wasm`
+
+6. Install dependencies
+
+`npm install`
 
 ## To run the dev version (including watching for changes in `.ts` files)
-` yarn develop` or `npm develop`
+`npm run dev`
 
 :tada:

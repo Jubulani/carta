@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const WasmPackPlugin = require('@wasm-tool/wasm-pack-plugin');
 
 module.exports = {
     entry: './src/bootstrap.ts',
@@ -22,6 +23,9 @@ module.exports = {
             { from: 'html', to: '' },
             { from: 'css', to: '' },
         ]),
+        new WasmPackPlugin({
+            crateDirectory: path.resolve(__dirname, "wasm"),
+        }),
     ],
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.wasm']

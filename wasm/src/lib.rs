@@ -1,14 +1,17 @@
-extern crate wasm_bindgen;
+use log::{trace, debug, info, warn, error, Level};
+
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
-extern {
-    fn alert(s: &str);
-}
 
 #[wasm_bindgen]
-pub fn greet() {
-    alert("👋 from Wasm");
+pub fn init() {
+    console_log::init_with_level(Level::Trace).expect("error initializing log");
+
+    trace!("Trace log");
+    debug!("Debug log");
+    info!("Info log");
+    warn!("Warning log");
+    error!("Error log");
 }
 
 #[cfg(test)]

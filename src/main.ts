@@ -5,9 +5,9 @@ async function load_wasm() {
     start_wasm(await import("../wasm/pkg/carta_backend_bg"));
 }
 
-function start_wasm(mymod: typeof import("../wasm/pkg/carta_backend_bg")) {
-    console.log("All wasm modules loaded");
-    mymod.greet();
+function start_wasm(carta_backend: typeof import("../wasm/pkg/carta_backend_bg")) {
+    console.log("Carta backend wasm module loaded");
+    carta_backend.init();
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {

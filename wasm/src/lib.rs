@@ -11,6 +11,13 @@ pub fn init() {
 
     // Init logging to browser console
     console_log::init_with_level(Level::Trace).expect("error initializing log");
+
+    info!("carta backend init complete");
+}
+
+#[wasm_bindgen]
+pub fn new_file() {
+    warn!("New file!");
 }
 
 #[cfg(test)]

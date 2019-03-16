@@ -1,25 +1,30 @@
-// Start loading the wasm module asyncronously
-load_wasm();
+import { init, new_file } from '../wasm/pkg/carta_backend_bg';
+init();
 
-async function load_wasm() {
-    start_wasm(await import("../wasm/pkg/carta_backend_bg"));
+// We were called asynchronously, so we don't know what state the document is in
+switch (document.readyState) {
+    case "loading":
+        document.addEventListener("DOMContentLoaded", addEventListener);
+        break;
+    case "interactive":
+    case "complete":
+        addEventListener();
+        break;
+    default:
+        console.error('Document state unknown');
 }
 
-function start_wasm(carta_backend: typeof import("../wasm/pkg/carta_backend_bg")) {
-    console.log("Carta backend wasm module loaded");
-    carta_backend.init();
-}
-
-document.addEventListener("DOMContentLoaded", function (event) {
-    console.log('Document loaded');
+function addEventListener() {
     let fileElem = document.getElementById('file-upload');
     if (fileElem) {
         fileElem.addEventListener('change', readFiles);
     } else {
-        console.log('Could not find file upload element');
+        console.error('Could not find file upload element');
     }
-});
+    console.log('Event listener added');
+}
 
+// Handle new file(s) to read
 function readFiles(event: Event) {
 
     console.log('Read file event');
@@ -44,5 +49,10 @@ function readFiles(event: Event) {
             }
             reader.readAsArrayBuffer(slice);
         }
+        new_file();
     }
 }
+
+
+// Make me a module
+export default function () { }

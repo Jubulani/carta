@@ -1,4 +1,4 @@
-import { init, new_file } from '../wasm/pkg/carta_backend_bg';
+import { init, new_file } from '../wasm/pkg/carta_backend';
 init();
 
 // We were called asynchronously, so we don't know what state the document is in
@@ -26,33 +26,23 @@ function addEventListener() {
 
 // Handle new file(s) to read
 function readFiles(event: Event) {
-
-    console.log('Read file event');
-
     let input = <HTMLInputElement>document.querySelector("#file-upload");
     let files = input.files;
 
     if (files) {
         for (let i = 0; i < files.length; ++i) {
             let file = files[i];
-            console.log('Have file: ' + file.name + ', size: ' + file.size + ' bytes');
-            let slice = file.slice(0, 10);
             let reader = new FileReader();
 
             reader.onloadend = function () {
                 let res = <ArrayBuffer>reader.result;
                 let arr = new Uint8Array(res);
-                console.log('File read complete (' + arr.length + ' bytes)');
-                for (let i = 0; i < arr.length; ++i) {
-                    console.log(arr[i]);
-                }
+                new_file(file.name, arr);
             }
-            reader.readAsArrayBuffer(slice);
+            reader.readAsArrayBuffer(file);
         }
-        new_file();
     }
 }
-
 
 // Make me a module
 export default function () { }

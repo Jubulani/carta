@@ -13,11 +13,14 @@ pub fn init() {
     console_log::init_with_level(Level::Trace).expect("error initializing log");
 
     info!("Carta backend init complete");
+
+    //info!("Memory: {:?}", wasm_bindgen::memory().dyn_into::<WebAssembly::Memory>().unwrap());
 }
 
 #[wasm_bindgen]
-pub fn new_file() {
-    warn!("New file!");
+pub fn new_file(name: &str, data: &[u8]) {
+    info!("Read new file: {}", name);
+    info!("Data size: {} bytes", data.len());
 }
 
 #[cfg(test)]

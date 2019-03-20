@@ -23,6 +23,12 @@ pub fn new_file(name: &str, data: &[u8]) {
     info!("Data size: {} bytes", data.len());
 }
 
+#[wasm_bindgen]
+pub fn new_schema(name: &str, data: &[u8]) {
+    info!("Read new schema file: {}", name);
+    info!("Data size: {} bytes", data.len());
+}
+
 #[cfg(test)]
 mod tests {
     #[test]

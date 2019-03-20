@@ -1,31 +1,39 @@
-import { init, new_file } from '../wasm/pkg/carta_backend';
+import { init, new_file, new_schema } from '../wasm/pkg/carta_backend';
 init();
 
 // We were called asynchronously, so we don't know what state the document is in
 switch (document.readyState) {
     case "loading":
-        document.addEventListener("DOMContentLoaded", addEventListener);
+        document.addEventListener("DOMContentLoaded", addEventListeners);
         break;
     case "interactive":
     case "complete":
-        addEventListener();
+        addEventListeners();
         break;
     default:
         console.error('Document state unknown');
 }
 
-function addEventListener() {
+function addEventListeners() {
     let fileElem = document.getElementById('file-upload');
     if (fileElem) {
         fileElem.addEventListener('change', readFiles);
     } else {
         console.error('Could not find file upload element');
     }
-    console.log('Event listener added');
+
+    let schemaFileElem = document.getElementById('schema-file-upload');
+    if (schemaFileElem) {
+        schemaFileElem.addEventListener('change', readSchemaFiles);
+    } else {
+        console.error('Could not find file upload element');
+    }
+
+    console.log('Event listeners added');
 }
 
 // Handle new file(s) to read
-function readFiles(event: Event) {
+function readFiles() {
     let input = <HTMLInputElement>document.querySelector("#file-upload");
     let files = input.files;
 
@@ -38,6 +46,25 @@ function readFiles(event: Event) {
                 let res = <ArrayBuffer>reader.result;
                 let arr = new Uint8Array(res);
                 new_file(file.name, arr);
+            }
+            reader.readAsArrayBuffer(file);
+        }
+    }
+}
+
+function readSchemaFiles() {
+    let input = <HTMLInputElement>document.querySelector("#schema-file-upload");
+    let files = input.files;
+
+    if (files) {
+        for (let i = 0; i < files.length; ++i) {
+            let file = files[i];
+            let reader = new FileReader();
+
+            reader.onloadend = function () {
+                let res = <ArrayBuffer>reader.result;
+                let arr = new Uint8Array(res);
+                new_schema(file.name, arr);
             }
             reader.readAsArrayBuffer(file);
         }

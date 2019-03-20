@@ -47,7 +47,8 @@ div#file-upload-area {
     width: 100%;
 }
 
-#file-upload {
+#file-upload,
+#schema-file-upload {
     display: none;
 }
 

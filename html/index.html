@@ -4,15 +4,23 @@
 <head>
     <meta charset="utf-8" />
     <META HTTP-EQUIV='Content-Security-Policy'
-        CONTENT="default-src 'self' ; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self'; img-src 'self'" />
+        CONTENT="default-src 'self' ; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://use.fontawesome.com/; style-src 'self' 'unsafe-inline'; img-src 'self'" />
     <link href="style.css" type="text/css" rel='stylesheet' />
     <script type="text/javascript" src="bootstrap.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+        integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
     <header>
         <span class="home">Carta</span>
-        <span class="schema">Schema: <span class="schema-val">None</span></span>
+        <span class="schema">Schema: <span class="schema-val">&lt;None&gt;</span>
+            <input type="file" id="schema-file-upload" multiple />
+            <label for="schema-file-upload"><span class="fas fa-plus-square"
+                    style="color: rgb(68, 203, 102)"></span></label>
+        </span>
+        </span>
     </header>
     <div id="main-container">
         <div id="file-upload-area">

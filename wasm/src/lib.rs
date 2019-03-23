@@ -1,3 +1,5 @@
+use std::str;
+
 use log::{trace, debug, info, warn, error, Level};
 
 use wasm_bindgen::prelude::*;
@@ -24,9 +26,15 @@ pub fn new_file(name: &str, data: &[u8]) {
 }
 
 #[wasm_bindgen]
-pub fn new_schema(name: &str, data: &[u8]) {
+pub fn new_schema(name: &str, data: &[u8]) -> Result<(), JsValue> {
     info!("Read new schema file: {}", name);
     info!("Data size: {} bytes", data.len());
+
+    let data = str::from_utf8(data).unwrap();
+
+    info!("Have file data: {}", data);
+
+    Ok(())
 }
 
 #[cfg(test)]

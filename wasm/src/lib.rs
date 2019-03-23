@@ -1,13 +1,11 @@
 use std::str;
 
-use log::{trace, debug, info, warn, error, Level};
+use log::{debug, error, info, trace, warn, Level};
 
 use wasm_bindgen::prelude::*;
 
-
 #[wasm_bindgen]
 pub fn init() {
-
     // Set panic hook to print panic messages to browser console
     std::panic::set_hook(Box::new(console_error_panic_hook::hook));
 
@@ -33,6 +31,9 @@ pub fn new_schema(name: &str, data: &[u8]) -> Result<(), JsValue> {
     let data = str::from_utf8(data).unwrap();
 
     info!("Have file data: {}", data);
+
+    carta_schema::compile_schema_file(data);
+    info!("Schema successfully compiled");
 
     Ok(())
 }

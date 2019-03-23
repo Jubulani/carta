@@ -14,3 +14,5 @@ console_error_panic_hook = "0.1"
 
 # Candidate for removal to reduce dependencies/binary size
 console_log = "0.1"
+
+carta-schema = { path = "../../carta-backend/carta-schema" }

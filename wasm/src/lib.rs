@@ -32,8 +32,14 @@ pub fn new_schema(name: &str, data: &[u8]) -> Result<(), JsValue> {
 
     info!("Have file data: {}", data);
 
-    carta_schema::compile_schema_file(data);
-    info!("Schema successfully compiled");
+    match carta_schema::compile_schema_file(data) {
+        Err(e) => {
+            let msg = format!("Error compiling schema: {}", e);
+            warn!("{}", msg);
+            return Err(JsValue::from_str(&msg));
+        }
+        Ok(_) => info!("Schema successfully compiled"),
+    }
 
     Ok(())
 }

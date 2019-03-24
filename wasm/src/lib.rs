@@ -1,6 +1,6 @@
 use std::str;
 
-use log::{debug, error, info, trace, warn, Level};
+use log::{info, warn, Level};
 
 use wasm_bindgen::prelude::*;
 
@@ -28,15 +28,21 @@ pub fn new_schema(name: &str, data: &[u8]) -> Result<(), JsValue> {
     info!("Read new schema file: {}", name);
     info!("Data size: {} bytes", data.len());
 
-    let data = str::from_utf8(data).unwrap();
+    let data = match str::from_utf8(data) {
+        Ok(d) => d,
+        Err(e) => {
+            warn!("Could not read schema file");
+            return Err(JsValue::from_str(&format!("{}", e)));
+        }
+    };
 
     info!("Have file data: {}", data);
 
     match carta_schema::compile_schema_file(data) {
         Err(e) => {
-            let msg = format!("Error compiling schema: {}", e);
+            let msg = format!("Error compiling schema - {}", e);
             warn!("{}", msg);
-            return Err(JsValue::from_str(&msg));
+            return Err(JsValue::from_str(&format!("{}", e)));
         }
         Ok(_) => info!("Schema successfully compiled"),
     }

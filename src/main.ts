@@ -1,17 +1,22 @@
-import { init, new_file, new_schema } from '../wasm/pkg/carta_wasm';
+import { init, new_file, new_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
 init();
 
 // We were called asynchronously, so we don't know what state the document is in
 switch (document.readyState) {
     case "loading":
-        document.addEventListener("DOMContentLoaded", addEventListeners);
+        document.addEventListener("DOMContentLoaded", document_loaded);
         break;
     case "interactive":
     case "complete":
-        addEventListeners();
+        document_loaded();
         break;
     default:
         console.error('Document state unknown');
+}
+
+function document_loaded() {
+    addEventListeners();
+    update_schema_name();
 }
 
 function addEventListeners() {
@@ -71,6 +76,7 @@ function readSchemaFiles() {
                 let arr = new Uint8Array(res);
                 try {
                     new_schema(file.name, arr);
+                    update_schema_name();
                 }
                 catch (err) {
                     alert(err);
@@ -78,6 +84,17 @@ function readSchemaFiles() {
             }
             reader.readAsArrayBuffer(file);
         }
+    }
+}
+
+function update_schema_name() {
+    let schema_name_elem = document.querySelector(".schema-name");
+    if (schema_name_elem) {
+        let name = get_schema_name();
+        console.log("Set schema name: " + name);
+        schema_name_elem.textContent = name;
+    } else {
+        console.error('Could not find schema-name element');
     }
 }
 

@@ -91,7 +91,6 @@ function update_schema_name() {
     let schema_name_elem = document.querySelector(".schema-name");
     if (schema_name_elem) {
         let name = get_schema_name();
-        console.log("Set schema name: " + name);
         schema_name_elem.textContent = name;
     } else {
         console.error('Could not find schema-name element');

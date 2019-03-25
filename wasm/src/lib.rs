@@ -45,8 +45,6 @@ pub fn new_schema(name: &str, data: &[u8]) -> Result<(), JsValue> {
         }
     };
 
-    info!("Have file data: {}", data);
-
     match carta_schema::compile_schema_file(data) {
         Err(e) => {
             let msg = format!("Error compiling schema - {}", e);

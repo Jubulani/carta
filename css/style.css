@@ -60,10 +60,10 @@ div#file-upload-area label {
     text-align: center;
 }
 
-/*.info-box {
+.info-box {
     border: 1px solid black;
     /* Collapse margins * /
     margin-right: -1px;
     font-family: 'Courier New', monospace;
     background-color: #fff;
-}*/
+}

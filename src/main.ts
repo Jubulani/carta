@@ -1,4 +1,4 @@
-import { init, new_file, new_schema } from '../wasm/pkg/carta_backend';
+import { init, new_file, new_schema } from '../wasm/pkg/carta_wasm';
 init();
 
 // We were called asynchronously, so we don't know what state the document is in

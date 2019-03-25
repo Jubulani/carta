@@ -58,7 +58,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "carta_backend"
+name = "carta_wasm"
 version = "0.1.0"
 dependencies = [
  "carta-schema 0.1.0",

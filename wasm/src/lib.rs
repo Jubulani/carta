@@ -31,7 +31,7 @@ pub fn new_schema(name: &str, data: &[u8]) -> Result<(), JsValue> {
     let data = match str::from_utf8(data) {
         Ok(d) => d,
         Err(e) => {
-            warn!("Could not read schema file");
+            warn!("Could not read schema file as utf-8: {}", e);
             return Err(JsValue::from_str(&format!("{}", e)));
         }
     };

@@ -4,6 +4,15 @@ use log::{info, warn, Level};
 
 use wasm_bindgen::prelude::*;
 
+use carta_schema::TSchema;
+
+static mut SCHEMA: Option<Schema> = None;//Mutex::new(RefCell::new(None));
+
+struct Schema {
+    name: String,
+    tschema: TSchema,
+}
+
 #[wasm_bindgen]
 pub fn init() {
     // Set panic hook to print panic messages to browser console
@@ -44,10 +53,30 @@ pub fn new_schema(name: &str, data: &[u8]) -> Result<(), JsValue> {
             warn!("{}", msg);
             return Err(JsValue::from_str(&format!("{}", e)));
         }
-        Ok(_) => info!("Schema successfully compiled"),
+        Ok(schema) => {
+            info!("Schema successfully compiled");
+            set_schema(name, schema);
+        }
     }
 
     Ok(())
+}
+
+#[wasm_bindgen]
+pub fn get_schema_name() -> String {
+    match unsafe { &SCHEMA } {
+        None => "<None>".to_string(),
+        Some(schema) => schema.name.clone(),
+    }
+}
+
+fn set_schema(name: &str, tschema: TSchema) {
+    unsafe {
+        SCHEMA = Some(Schema {
+            name: name.to_string(),
+            tschema
+        });
+    }
 }
 
 #[cfg(test)]

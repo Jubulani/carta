@@ -45,7 +45,12 @@ function readFiles() {
             reader.onloadend = function () {
                 let res = <ArrayBuffer>reader.result;
                 let arr = new Uint8Array(res);
-                new_file(file.name, arr);
+                try {
+                    new_file(file.name, arr);
+                }
+                catch (err) {
+                    alert(err);
+                }
             }
             reader.readAsArrayBuffer(file);
         }
@@ -64,7 +69,12 @@ function readSchemaFiles() {
             reader.onloadend = function () {
                 let res = <ArrayBuffer>reader.result;
                 let arr = new Uint8Array(res);
-                new_schema(file.name, arr);
+                try {
+                    new_schema(file.name, arr);
+                }
+                catch (err) {
+                    alert(err);
+                }
             }
             reader.readAsArrayBuffer(file);
         }

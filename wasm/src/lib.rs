@@ -27,13 +27,13 @@ pub fn init() {
 }
 
 #[wasm_bindgen]
-pub fn new_file(name: &str, data: &[u8]) {
+pub fn apply_schema(name: &str, data: &[u8]) {
     info!("Read new file: {}", name);
     info!("Data size: {} bytes", data.len());
 }
 
 #[wasm_bindgen]
-pub fn new_schema(name: &str, data: &[u8]) -> Result<(), JsValue> {
+pub fn load_schema(name: &str, data: &[u8]) -> Result<(), JsValue> {
     info!("Read new schema file: {}", name);
     info!("Data size: {} bytes", data.len());
 

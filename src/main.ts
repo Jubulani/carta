@@ -1,4 +1,5 @@
-import { init, new_file, new_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
+import { init, apply_schema, load_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
+import { add_div } from './carta_util';
 init();
 
 // We were called asynchronously, so we don't know what state the document is in
@@ -51,7 +52,8 @@ function readFiles() {
                 let res = <ArrayBuffer>reader.result;
                 let arr = new Uint8Array(res);
                 try {
-                    new_file(file.name, arr);
+                    display_new_file(file.name, arr);
+                    apply_schema(file.name, arr);
                 }
                 catch (err) {
                     alert(err);
@@ -60,6 +62,10 @@ function readFiles() {
             reader.readAsArrayBuffer(file);
         }
     }
+}
+
+function display_new_file(name: string, data: Uint8Array) {
+    add_div(name, "main-container");
 }
 
 function readSchemaFiles() {
@@ -75,7 +81,7 @@ function readSchemaFiles() {
                 let res = <ArrayBuffer>reader.result;
                 let arr = new Uint8Array(res);
                 try {
-                    new_schema(file.name, arr);
+                    load_schema(file.name, arr);
                     update_schema_name();
                 }
                 catch (err) {

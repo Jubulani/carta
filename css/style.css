@@ -60,10 +60,28 @@ div#file-upload-area label {
     text-align: center;
 }
 
-.info-box {
-    border: 1px solid black;
-    /* Collapse margins */
-    margin-right: -1px;
-    font-family: 'Courier New', monospace;
+.file-container {
     background-color: #fff;
+}
+
+.file-data {
+    display: flex;
+    font-family: 'Courier New', monospace;
+}
+
+.filename {
+    padding: 10px 0 5px 10px;
+    font-weight: bold;
+    font-size: 1.1em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.hex-data,
+.ascii-data {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ascii-data {
+    white-space: pre;
 }

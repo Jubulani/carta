@@ -1,5 +1,6 @@
 import { init, apply_schema, load_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
 import { add_div_before } from './carta_util';
+import { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } from 'constants';
 init();
 
 // We were called asynchronously, so we don't know what state the document is in
@@ -64,11 +65,30 @@ function readFiles() {
 }
 
 function display_new_file(name: string, data: Uint8Array) {
-    let div = add_div_before(name, "main-container", "file-upload-area");
-    div.classList.add("info-box");
+    let file_div = add_div_before(name, "main-container", "file-upload-area");
+    file_div.classList.add("file-container");
+
+    let name_div = document.createElement("div");
+    name_div.classList.add("filename");
+    name_div.textContent = name;
+    file_div.appendChild(name_div);
+
+    let file_data_div = document.createElement("div");
+    file_data_div.classList.add("file-data");
+    file_div.appendChild(file_data_div);
+
+    let hex_data_div = document.createElement("div");
+    hex_data_div.classList.add("hex-data");
+    file_data_div.appendChild(hex_data_div);
     let hex_data = get_hex_data(data);
     let html_data = get_html_data(hex_data);
-    div.innerHTML = html_data;
+    hex_data_div.innerHTML = html_data;
+
+    let ascii_data_div = document.createElement("div");
+    ascii_data_div.classList.add("ascii-data");
+    file_data_div.appendChild(ascii_data_div);
+    let ascii_data = get_ascii_data(data);
+    ascii_data_div.textContent = ascii_data;
 }
 
 function byte_to_str(b: number): string {
@@ -108,6 +128,26 @@ function get_html_data(data: string[]): string {
         ret += data.slice(index, slice_end).join(' ');
         ret += '<br>'
         index = slice_end;
+    }
+    return ret;
+}
+
+function byte_to_ascii(b: number): string {
+    if (b >= 32 && b <= 126) {
+        return String.fromCharCode(b);
+    } else {
+        return '.';
+    }
+}
+
+/* Returns a text string, that is *NOT* html encoded */
+function get_ascii_data(data: Uint8Array): string {
+    let ret = String();
+    for (let i = 0; i < data.length; ++i) {
+        if (i > 0 && !(i % 16)) {
+            ret += '\n';
+        }
+        ret += byte_to_ascii(data[i]);
     }
     return ret;
 }

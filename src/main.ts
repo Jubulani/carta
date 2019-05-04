@@ -1,5 +1,5 @@
 import { init, apply_schema, load_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
-import { add_div } from './carta_util';
+import { add_div_before } from './carta_util';
 init();
 
 // We were called asynchronously, so we don't know what state the document is in
@@ -38,7 +38,6 @@ function addEventListeners() {
     console.log('Event listeners added');
 }
 
-// Handle new file(s) to read
 function readFiles() {
     let input = <HTMLInputElement>document.querySelector("#file-upload");
     let files = input.files;
@@ -65,7 +64,52 @@ function readFiles() {
 }
 
 function display_new_file(name: string, data: Uint8Array) {
-    add_div(name, "main-container");
+    let div = add_div_before(name, "main-container", "file-upload-area");
+    div.classList.add("info-box");
+    let hex_data = get_hex_data(data);
+    let html_data = get_html_data(hex_data);
+    div.innerHTML = html_data;
+}
+
+function byte_to_str(b: number): string {
+    let ret = b.toString(16);
+    if (ret.length % 2) {
+        ret = '0' + ret;
+    }
+    return ret;
+}
+
+function get_hex_data(data: Uint8Array): string[] {
+    let ret: string[] = Array();
+    let i = 0;
+    for (; i < data.length - 1; i += 2) {
+        let r = byte_to_str(data[i]);
+        r += byte_to_str(data[i + 1]);
+        ret.push(r);
+    }
+    //  Might have one last byte to process
+    if (i < data.length) {
+        let r = byte_to_str(data[i]);
+        ret.push(r);
+    }
+    return ret;
+}
+
+function get_html_data(data: string[]): string {
+    let ret = String();
+    let index = 0;
+    while (index < data.length) {
+        let slice_end = 0;
+        if (data.length - index > 8) {
+            slice_end = index + 8;
+        } else {
+            slice_end = data.length;
+        }
+        ret += data.slice(index, slice_end).join(' ');
+        ret += '<br>'
+        index = slice_end;
+    }
+    return ret;
 }
 
 function readSchemaFiles() {

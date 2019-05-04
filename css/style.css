@@ -44,7 +44,7 @@ div#file-upload-area {
     flex-direction: column;
     justify-content: center;
     border-radius: 20px;
-    width: 100%;
+    flex-grow: 1;
 }
 
 #file-upload,
@@ -62,7 +62,7 @@ div#file-upload-area label {
 
 .info-box {
     border: 1px solid black;
-    /* Collapse margins * /
+    /* Collapse margins */
     margin-right: -1px;
     font-family: 'Courier New', monospace;
     background-color: #fff;

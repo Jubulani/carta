@@ -5,6 +5,9 @@ html {
 body {
     background-color: #dddddd;
     margin: 0;
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 50px;
     display: grid;
     grid-template-rows: 50px auto;
     height: 100%;
@@ -21,13 +24,6 @@ header {
     padding-right: 20px;
     display: flex;
     justify-content: space-between;
-}
-
-.schema,
-.home {
-    font-size: 1.4em;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    line-height: 50px;
 }
 
 #main-container {
@@ -47,6 +43,28 @@ div#file-upload-area {
     flex-grow: 1;
 }
 
+div#schema-area {
+    flex-grow: 1;
+}
+
+div#left-sidebar {
+    display:flex;
+    flex-direction: column;
+    width: 250px;
+    line-height: 30px;
+}
+
+div#data-area {
+    flex-grow: 1;
+    background: white;
+    font-size: 14px;
+}
+
+.sidebar-title {
+    text-align: center;
+    font-size: 20px;
+}
+
 #file-upload,
 #schema-file-upload {
     display: none;
@@ -54,8 +72,6 @@ div#file-upload-area {
 
 div#file-upload-area label {
     color: #777;
-    font-size: 1.4em;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 1em;
     text-align: center;
 }
@@ -72,8 +88,6 @@ div#file-upload-area label {
 .filename {
     padding: 10px 0 5px 10px;
     font-weight: bold;
-    font-size: 1.1em;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .hex-data,

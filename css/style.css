@@ -52,6 +52,8 @@ div#left-sidebar {
     flex-direction: column;
     width: 250px;
     line-height: 30px;
+    resize: horizontal;
+    overflow: hidden;
 }
 
 div#data-area {

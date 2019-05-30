@@ -53,7 +53,12 @@ function readFiles() {
                 let arr = new Uint8Array(res);
                 try {
                     display_new_file(file.name, arr);
-                    apply_schema(file.name, arr);
+                    let nugget = apply_schema(file.name, arr);
+                    if (nugget) {
+                        console.log('Nugget: {start: ' + nugget.start + ', len: ' + nugget.len + ', name: ' + nugget.name + ', value: ' + nugget.value + ', children: ' + nugget.children + '}');
+                    } else {
+                        console.log('No return value');
+                    }
                 }
                 catch (err) {
                     alert(err);

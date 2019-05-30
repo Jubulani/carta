@@ -1,17 +1,17 @@
 use std::str;
 
 use log::{info, warn, Level};
-
 use wasm_bindgen::prelude::*;
 
 use carta_schema::TSchema;
 
-static mut SCHEMA: Option<Schema> = None;//Mutex::new(RefCell::new(None));
+static mut SCHEMA: Option<Schema> = None;
 
 struct Schema {
     name: String,
     tschema: TSchema,
 }
+
 
 #[wasm_bindgen]
 pub fn init() {
@@ -27,9 +27,23 @@ pub fn init() {
 }
 
 #[wasm_bindgen]
-pub fn apply_schema(name: &str, data: &[u8]) {
+pub fn apply_schema(name: &str, data: &[u8]) -> JsValue {
     info!("Read new file: {}", name);
     info!("Data size: {} bytes", data.len());
+
+    let nugget = match get_schema() {
+        Some(schema) => {
+            info!("Apply schema to file");
+            carta_schema::apply_schema(&schema.tschema, data)
+        },
+        None => {
+            info!("No current schema, nothing to do");
+            return JsValue::undefined();
+        }
+    };
+
+    info!("Have nugget: {:?}", nugget);
+    JsValue::from_serde(&nugget).unwrap()
 }
 
 #[wasm_bindgen]
@@ -74,6 +88,12 @@ fn set_schema(name: &str, tschema: TSchema) {
             name: name.to_string(),
             tschema
         });
+    }
+}
+
+fn get_schema() -> &'static Option<Schema> {
+    unsafe {
+        return &SCHEMA;
     }
 }
 

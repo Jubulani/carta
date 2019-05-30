@@ -1,6 +1,6 @@
 import { init, apply_schema, load_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
-import { add_div_before } from './carta_util';
-import { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } from 'constants';
+import { append_div } from './carta_util';
+
 init();
 
 // We were called asynchronously, so we don't know what state the document is in
@@ -65,7 +65,7 @@ function readFiles() {
 }
 
 function display_new_file(name: string, data: Uint8Array) {
-    let file_div = add_div_before(name, "main-container", "file-upload-area");
+    let file_div = append_div(name, "data-area");
     file_div.classList.add("file-container");
 
     let name_div = document.createElement("div");

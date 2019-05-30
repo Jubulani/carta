@@ -15,12 +15,6 @@
 <body>
     <header>
         <span class="home">Carta</span>
-        <span class="schema">Schema: <span class="schema-name"></span>
-            <input type="file" id="schema-file-upload" multiple />
-            <label for="schema-file-upload"><span class="fas fa-plus-square"
-                    style="color: rgb(68, 203, 102)"></span></label>
-        </span>
-        </span>
     </header>
     <div id="main-container">
         <div id="left-sidebar">
@@ -30,8 +24,13 @@
                 <input type="file" id="file-upload" multiple />
                 <label for="file-upload">Click to open</label>
             </div>
-            <div class="sidebar-title">Schema</div>
-            <div id="schema-area"></div>
+            <div class="sidebar-title">Schema: <span class="schema-name"></span></div>
+            <div id="schema-area">
+                <input type="file" id="schema-file-upload" multiple />
+                <label for="schema-file-upload">
+                    <span class="fas fa-plus-square fa-2x schema-add-button" style="">
+                </label>
+            </div>
         </div>
         <div id="data-area"></div>
     </div>

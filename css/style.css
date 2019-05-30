@@ -7,7 +7,6 @@ body {
     margin: 0;
     font-size: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    line-height: 50px;
     display: grid;
     grid-template-rows: 50px auto;
     height: 100%;
@@ -24,6 +23,7 @@ header {
     padding-right: 20px;
     display: flex;
     justify-content: space-between;
+    line-height: 50px;
 }
 
 #main-container {
@@ -60,11 +60,13 @@ div#data-area {
     flex-grow: 1;
     background: white;
     font-size: 14px;
+    display: flex;
 }
 
 .sidebar-title {
     text-align: center;
     font-size: 20px;
+    background: #0087f7;
 }
 
 #file-upload,
@@ -100,4 +102,10 @@ div#file-upload-area label {
 
 .ascii-data {
     white-space: pre;
+}
+
+.schema-add-button {
+    width: 100%;
+    color: rgb(68, 203, 102);
+    text-align: center;
 }

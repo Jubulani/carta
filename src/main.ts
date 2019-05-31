@@ -1,5 +1,5 @@
 import { init, apply_schema, load_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
-import { append_div } from './carta_util';
+import { append_div, append_div_with_class } from './carta_util';
 
 init();
 
@@ -73,25 +73,16 @@ function display_new_file(name: string, data: Uint8Array) {
     let file_div = append_div(name, "data-area");
     file_div.classList.add("file-container");
 
-    let name_div = document.createElement("div");
-    name_div.classList.add("filename");
+    let name_div = append_div_with_class(file_div, "filename");
     name_div.textContent = name;
-    file_div.appendChild(name_div);
 
-    let file_data_div = document.createElement("div");
-    file_data_div.classList.add("file-data");
-    file_div.appendChild(file_data_div);
-
-    let hex_data_div = document.createElement("div");
-    hex_data_div.classList.add("hex-data");
-    file_data_div.appendChild(hex_data_div);
+    let file_data_div = append_div_with_class(file_div, "file-data");
+    let hex_data_div = append_div_with_class(file_data_div, "hex-data");
     let hex_data = get_hex_data(data);
     let html_data = get_html_data(hex_data);
     hex_data_div.innerHTML = html_data;
 
-    let ascii_data_div = document.createElement("div");
-    ascii_data_div.classList.add("ascii-data");
-    file_data_div.appendChild(ascii_data_div);
+    let ascii_data_div = append_div_with_class(file_data_div, "ascii-data");
     let ascii_data = get_ascii_data(data);
     ascii_data_div.textContent = ascii_data;
 }

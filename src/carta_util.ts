@@ -9,3 +9,10 @@ export function append_div(name: string, parent_id: string): Element {
     }
     return new_div;
 }
+
+export function append_div_with_class(parent: Element, cls: string): Element {
+    let new_div = document.createElement("div");
+    new_div.classList.add(cls);
+    parent.appendChild(new_div);
+    return new_div;
+}

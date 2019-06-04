@@ -52,13 +52,13 @@ function readFiles() {
                 let res = <ArrayBuffer>reader.result;
                 let arr = new Uint8Array(res);
                 try {
-                    display_new_file(file.name, arr);
                     let nugget = apply_schema(file.name, arr);
                     if (nugget) {
                         console.log('Nugget: {start: ' + nugget.start + ', len: ' + nugget.len + ', name: ' + nugget.name + ', value: ' + nugget.value + ', children: ' + nugget.children + '}');
                     } else {
                         console.log('No return value');
                     }
+                    display_new_file(file.name, arr, nugget);
                 }
                 catch (err) {
                     alert(err);
@@ -69,7 +69,7 @@ function readFiles() {
     }
 }
 
-function display_new_file(name: string, data: Uint8Array) {
+function display_new_file(name: string, data: Uint8Array, nugget: any) {
     let file_div = append_div(name, "data-area");
     file_div.classList.add("file-container");
 
@@ -79,12 +79,13 @@ function display_new_file(name: string, data: Uint8Array) {
     let file_data_div = append_div_with_class(file_div, "file-data");
     let hex_data_div = append_div_with_class(file_data_div, "hex-data");
     let hex_data = get_hex_data(data);
-    let html_data = get_html_data(hex_data);
-    hex_data_div.innerHTML = html_data;
+    hex_data_div.innerHTML = get_html_data(hex_data);
 
     let ascii_data_div = append_div_with_class(file_data_div, "ascii-data");
-    let ascii_data = get_ascii_data(data);
-    ascii_data_div.textContent = ascii_data;
+    ascii_data_div.textContent = get_ascii_data(data);
+
+    let schema_data_div = append_div_with_class(file_data_div, "schema-data");
+    schema_data_div.textContent = get_schema_data(data, nugget);
 }
 
 function byte_to_str(b: number): string {
@@ -146,6 +147,10 @@ function get_ascii_data(data: Uint8Array): string {
         ret += byte_to_ascii(data[i]);
     }
     return ret;
+}
+
+function get_schema_data(data: Uint8Array, nugget: any): string {
+    return nugget.name;
 }
 
 function readSchemaFiles() {

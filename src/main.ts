@@ -1,5 +1,5 @@
 import { init, apply_schema, load_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
-import { append_div, append_div_with_class } from './carta_util';
+import { append_div, append_div_with_class, get_closest_parent } from './carta_util';
 
 init();
 
@@ -171,60 +171,72 @@ function get_root_schema_data(nugget: any): string {
 
 function update_schema_event_listeners() {
     let elems = document.getElementsByClassName('schema-nugget');
-    Array.from(elems).forEach(function(elem) {
+    Array.from(elems).forEach(function (elem) {
         elem.addEventListener('mouseenter', nugget_mouseenter);
-        elem.addEventListener('mouseleave', e => {
-            console.log('Mouse leave: ' + e);
-        });
+        elem.addEventListener('mouseleave', nugget_mouseleave);
     })
 }
 
-function nugget_mouseenter(e: Event) {
-    console.log('Mouse enter: ' + e);
-    console.log('Target: ' + e.target);
+function nugget_mouseleave(e: Event) {
+    // Clear highlighting
     let target = e.target;
     if (!(target instanceof Element)) {
         console.error('Expected element, got ' + target);
         return;
     }
 
-    console.log(`Attributes: ${target.attributes}`);
-    let attrs = target.attributes;
-    for (let i = 0; i < attrs.length; ++i) {
-        console.log(`  ${attrs[i].name} = ${attrs[i].value}`)
+    let parent = get_closest_parent(target.parentElement);
+
+    let hex_elem = parent.getElementsByClassName('hex-data')[0];
+    let hex_text = hex_elem.textContent;
+    if (!hex_text) {
+        console.error('Cound not get hex elem text');
+        return;
     }
-    let start_attr = attrs.getNamedItem('data-idx-start');
+    hex_elem.textContent = hex_text;
+
+    let ascii_elem = parent.getElementsByClassName('ascii-data')[0];
+    let ascii_text = ascii_elem.textContent;
+    if (!ascii_text) {
+        console.error('Cound not get ascii elem text');
+        return;
+    }
+    ascii_elem.textContent = ascii_text;
+}
+
+function nugget_mouseenter(e: Event) {
+    let target = e.target;
+    if (!(target instanceof Element)) {
+        console.error('Expected element, got ' + target);
+        return;
+    }
+
+    let start_attr = target.attributes.getNamedItem('data-idx-start');
     if (!start_attr) {
         console.error('data-idx-start attribute not found');
         return;
     }
     let start = parseInt(start_attr.value);
 
-    let len_attr = attrs.getNamedItem('data-idx-len');
+    let len_attr = target.attributes.getNamedItem('data-idx-len');
     if (!len_attr) {
         console.error('data-idx-len attribute not found');
         return;
     }
     let len = parseInt(len_attr.value);
 
-    console.log('Start: ' + start);
-    console.log('Length: ' + len);
+    let parent = get_closest_parent(target.parentElement);
 
+    highlight_hexdata(start, len, parent);
+    highlight_asciidata(start, len, parent);
+}
+
+function highlight_hexdata(start: number, len: number, parent: Element) {
     // '*2 '    - Each byte is composed of two displayed chars
     // '* 1.25' - Each block of four displayed chars is followed by a single separator char
     // '- 0.01' - If the end char is a separator, don't include it
     let start_char = Math.floor((start * 2) * 1.25);
     let end_char = Math.floor(((start + len) * 2) * 1.25 - 0.01);
-    console.log(`Chars between: ${start_char} and ${end_char}`);
-
-    let parent = target.parentElement;
-    while (parent && !parent.classList.contains('file-data')) {
-        parent = parent.parentElement;
-    }
-    if (!parent) {
-        console.error('Could not find parent file_data element');
-        return;
-    }
 
     let hex_elem = parent.getElementsByClassName('hex-data')[0];
     let hex_text = hex_elem.textContent;
@@ -235,10 +247,28 @@ function nugget_mouseenter(e: Event) {
 
     let pre = hex_text.substring(0, start_char);
     let highlight = hex_text.substring(start_char, end_char);
-    console.log(`Highlighted data: '${highlight}'`)
     let post = hex_text.substring(end_char);
 
     hex_elem.innerHTML = `${pre}<span class="highlight">${highlight}</span>${post}`;
+}
+
+function highlight_asciidata(start: number, len: number, parent: Element) {
+    // 16 displayed chars are followed by one separator char
+    let start_char = Math.floor(start * 1.0625);
+    let end_char = Math.floor((start + len) * 1.0625);
+
+    let ascii_elem = parent.getElementsByClassName('ascii-data')[0];
+    let ascii_text = ascii_elem.innerHTML;
+    if (!ascii_text) {
+        console.error('Cound not get ascii elem text');
+        return;
+    }
+
+    let pre = ascii_text.substring(0, start_char);
+    let highlight = ascii_text.substring(start_char, end_char);
+    let post = ascii_text.substring(end_char);
+
+    ascii_elem.innerHTML = `${pre}<span class="highlight">${highlight}</span>${post}`;
 }
 
 function readSchemaFiles() {

@@ -115,4 +115,5 @@ div#file-upload-area label {
 
 .highlight {
     color: rgb(68, 203, 102);
+    font-weight: bold;
 }

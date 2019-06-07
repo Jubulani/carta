@@ -16,3 +16,15 @@ export function append_div_with_class(parent: Element, cls: string): Element {
     parent.appendChild(new_div);
     return new_div;
 }
+
+export function get_closest_parent(elem: Element | null): Element {
+    let parent: Element | null = elem;
+    while (parent && !parent.classList.contains('file-data')) {
+        parent = parent.parentElement;
+    }
+    if (!parent) {
+        throw 'Could not find parent file-data element';
+    }
+
+    return parent;
+}

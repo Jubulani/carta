@@ -80,7 +80,7 @@ function display_new_file(name: string, data: Uint8Array, nugget: any) {
 
     if (nugget) {
         let schema_data_div = append_div_with_class(file_data_div, "schema-data");
-        schema_data_div.innerHTML = get_schema_data(nugget, 0);
+        schema_data_div.innerHTML = get_root_schema_data(nugget);
         update_schema_event_listeners();
     }
 }
@@ -157,6 +157,14 @@ function get_schema_data(nugget: any, depth: number): string {
     let schema_data = get_nugget_text(nugget, depth);
     for (let i = 0; i < nugget.children.length; ++i) {
         schema_data += get_schema_data(nugget.children[i], depth + 1);
+    }
+    return schema_data;
+}
+
+function get_root_schema_data(nugget: any): string {
+    let schema_data = '';
+    for (let i = 0; i < nugget.children.length; ++i) {
+        schema_data += get_schema_data(nugget.children[i], 0);
     }
     return schema_data;
 }

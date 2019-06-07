@@ -53,11 +53,6 @@ function readFiles() {
                 let arr = new Uint8Array(res);
                 try {
                     let nugget = apply_schema(file.name, arr);
-                    if (nugget) {
-                        console.log('Nugget: {start: ' + nugget.start + ', len: ' + nugget.len + ', name: ' + nugget.name + ', value: ' + nugget.value + ', children: ' + nugget.children + '}');
-                    } else {
-                        console.log('No return value');
-                    }
                     display_new_file(file.name, arr, nugget);
                 }
                 catch (err) {
@@ -85,7 +80,8 @@ function display_new_file(name: string, data: Uint8Array, nugget: any) {
 
     if (nugget) {
         let schema_data_div = append_div_with_class(file_data_div, "schema-data");
-        schema_data_div.textContent = get_schema_data(data, nugget);
+        schema_data_div.innerHTML = get_schema_data(nugget, 0);
+        update_schema_event_listeners();
     }
 }
 
@@ -95,12 +91,12 @@ function byte_to_str(b: number): string {
         ret = '0' + ret;
     }
     return ret;
-}qgi
+}
 
 function get_hex_data(data: Uint8Array): string {
+    // Process data into array of two-byte strings
     let words: string[] = Array();
     let i = 0;
-    // Process data into array of two-byte strings
     for (; i < data.length - 1; i += 2) {
         let r = byte_to_str(data[i]);
         r += byte_to_str(data[i + 1]);
@@ -147,9 +143,94 @@ function get_ascii_data(data: Uint8Array): string {
     return ret;
 }
 
-function get_schema_data(data: Uint8Array, nugget: any): string {
-    let schema_data: string = nugget.name;
+var nugget_id = 0;
+function get_nugget_text(nugget: any, depth: number): string {
+    let value = new Array(depth + 1).join('  ');
+    value += `<span class=schema-nugget data-idx-start=${nugget.start} data-idx-len=${nugget.len} data-nugget-id=${nugget_id++}>${nugget.name}`;
+    if (nugget.value) {
+        value += `: ${nugget.value}`;
+    }
+    return value + '</span>\n';
+}
+
+function get_schema_data(nugget: any, depth: number): string {
+    let schema_data = get_nugget_text(nugget, depth);
+    for (let i = 0; i < nugget.children.length; ++i) {
+        schema_data += get_schema_data(nugget.children[i], depth + 1);
+    }
     return schema_data;
+}
+
+function update_schema_event_listeners() {
+    let elems = document.getElementsByClassName('schema-nugget');
+    Array.from(elems).forEach(function(elem) {
+        elem.addEventListener('mouseenter', nugget_mouseenter);
+        elem.addEventListener('mouseleave', e => {
+            console.log('Mouse leave: ' + e);
+        });
+    })
+}
+
+function nugget_mouseenter(e: Event) {
+    console.log('Mouse enter: ' + e);
+    console.log('Target: ' + e.target);
+    let target = e.target;
+    if (!(target instanceof Element)) {
+        console.error('Expected element, got ' + target);
+        return;
+    }
+
+    console.log(`Attributes: ${target.attributes}`);
+    let attrs = target.attributes;
+    for (let i = 0; i < attrs.length; ++i) {
+        console.log(`  ${attrs[i].name} = ${attrs[i].value}`)
+    }
+    let start_attr = attrs.getNamedItem('data-idx-start');
+    if (!start_attr) {
+        console.error('data-idx-start attribute not found');
+        return;
+    }
+    let start = parseInt(start_attr.value);
+
+    let len_attr = attrs.getNamedItem('data-idx-len');
+    if (!len_attr) {
+        console.error('data-idx-len attribute not found');
+        return;
+    }
+    let len = parseInt(len_attr.value);
+
+    console.log('Start: ' + start);
+    console.log('Length: ' + len);
+
+    // '*2 '    - Each byte is composed of two displayed chars
+    // '* 1.25' - Each block of four displayed chars is followed by a single separator char
+    // '- 0.01' - If the end char is a separator, don't include it
+    let start_char = Math.floor((start * 2) * 1.25);
+    let end_char = Math.floor(((start + len) * 2) * 1.25 - 0.01);
+    console.log(`Chars between: ${start_char} and ${end_char}`);
+
+    let parent = target.parentElement;
+    while (parent && !parent.classList.contains('file-data')) {
+        parent = parent.parentElement;
+    }
+    if (!parent) {
+        console.error('Could not find parent file_data element');
+        return;
+    }
+
+    let hex_elem = parent.getElementsByClassName('hex-data')[0];
+    let hex_text = hex_elem.textContent;
+    if (!hex_text) {
+        console.error('Cound not get hex elem text');
+        return;
+    }
+
+    let pre = hex_text.substring(0, start_char);
+    let highlight = hex_text.substring(start_char, end_char);
+    console.log(`Highlighted data: '${highlight}'`)
+    let post = hex_text.substring(end_char);
+
+    hex_elem.innerHTML = `${pre}<span class="highlight">${highlight}</span>${post}`;
 }
 
 function readSchemaFiles() {

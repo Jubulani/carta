@@ -102,17 +102,17 @@ div#file-upload-area label {
 }
 
 .hex-data,
-.ascii-data {
-    white-space: pre;
-}
-
+.ascii-data,
 .schema-data {
-    width: 50px;
-    background: #eef;
+    white-space: pre;
 }
 
 .schema-add-button {
     width: 100%;
     color: rgb(68, 203, 102);
     text-align: center;
+}
+
+.highlight {
+    color: rgb(68, 203, 102);
 }

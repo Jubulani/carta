@@ -101,6 +101,7 @@ div#file-upload-area label {
     padding-right: 10px;
 }
 
+.hex-data,
 .ascii-data {
     white-space: pre;
 }

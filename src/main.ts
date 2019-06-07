@@ -78,14 +78,15 @@ function display_new_file(name: string, data: Uint8Array, nugget: any) {
 
     let file_data_div = append_div_with_class(file_div, "file-data");
     let hex_data_div = append_div_with_class(file_data_div, "hex-data");
-    let hex_data = get_hex_data(data);
-    hex_data_div.innerHTML = get_html_data(hex_data);
+    hex_data_div.textContent = get_hex_data(data);
 
     let ascii_data_div = append_div_with_class(file_data_div, "ascii-data");
     ascii_data_div.textContent = get_ascii_data(data);
 
-    let schema_data_div = append_div_with_class(file_data_div, "schema-data");
-    schema_data_div.textContent = get_schema_data(data, nugget);
+    if (nugget) {
+        let schema_data_div = append_div_with_class(file_data_div, "schema-data");
+        schema_data_div.textContent = get_schema_data(data, nugget);
+    }
 }
 
 function byte_to_str(b: number): string {
@@ -94,39 +95,37 @@ function byte_to_str(b: number): string {
         ret = '0' + ret;
     }
     return ret;
-}
+}qgi
 
-function get_hex_data(data: Uint8Array): string[] {
-    let ret: string[] = Array();
+function get_hex_data(data: Uint8Array): string {
+    let words: string[] = Array();
     let i = 0;
+    // Process data into array of two-byte strings
     for (; i < data.length - 1; i += 2) {
         let r = byte_to_str(data[i]);
         r += byte_to_str(data[i + 1]);
-        ret.push(r);
+        words.push(r);
     }
     //  Might have one last byte to process
     if (i < data.length) {
         let r = byte_to_str(data[i]);
-        ret.push(r);
+        words.push(r);
     }
-    return ret;
-}
 
-function get_html_data(data: string[]): string {
-    let ret = String();
+    // Process array of strings into formatted output
+    let hex_data = String();
     let index = 0;
-    while (index < data.length) {
+    while (index < words.length) {
         let slice_end = 0;
-        if (data.length - index > 8) {
+        if (words.length - index > 8) {
             slice_end = index + 8;
         } else {
-            slice_end = data.length;
+            slice_end = words.length;
         }
-        ret += data.slice(index, slice_end).join(' ');
-        ret += '<br>'
+        hex_data += words.slice(index, slice_end).join(' ') + '\n';
         index = slice_end;
     }
-    return ret;
+    return hex_data;
 }
 
 function byte_to_ascii(b: number): string {
@@ -137,7 +136,6 @@ function byte_to_ascii(b: number): string {
     }
 }
 
-/* Returns a text string, that is *NOT* html encoded */
 function get_ascii_data(data: Uint8Array): string {
     let ret = String();
     for (let i = 0; i < data.length; ++i) {
@@ -150,7 +148,8 @@ function get_ascii_data(data: Uint8Array): string {
 }
 
 function get_schema_data(data: Uint8Array, nugget: any): string {
-    return nugget.name;
+    let schema_data: string = nugget.name;
+    return schema_data;
 }
 
 function readSchemaFiles() {

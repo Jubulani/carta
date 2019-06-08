@@ -30,6 +30,7 @@ header {
     display: flex;
     justify-content: center;
     grid-area: main;
+    overflow: scroll;
 }
 
 div#file-upload-area {
@@ -61,6 +62,7 @@ div#data-area {
     background: white;
     font-size: 14px;
     display: flex;
+    overflow: scroll;
 }
 
 .sidebar-title {

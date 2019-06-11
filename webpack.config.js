@@ -1,6 +1,7 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const WasmPackPlugin = require('@wasm-tool/wasm-pack-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
     entry: './src/bootstrap.ts',
@@ -15,6 +16,10 @@ module.exports = {
             {
                 test: /\.wasm$/,
                 type: "webassembly/experimental"
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
             }
         ]
     },
@@ -26,6 +31,10 @@ module.exports = {
         new WasmPackPlugin({
             crateDirectory: path.resolve(__dirname, "wasm"),
         }),
+        new MonacoWebpackPlugin({
+            languages: ['rust'],
+            features: ['bracketMatching'],
+        })
     ],
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.wasm']

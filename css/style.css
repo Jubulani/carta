@@ -119,3 +119,7 @@ div#file-upload-area label {
     color: rgb(68, 203, 102);
     font-weight: bold;
 }
+
+.editor {
+    width: 500px;
+}

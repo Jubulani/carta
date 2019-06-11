@@ -1,7 +1,9 @@
 import { init, apply_schema, load_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
 import { append_div, append_div_with_class, get_closest_parent } from './carta_util';
+import { init_editor } from './editor';
 
 init();
+init_editor();
 
 // We were called asynchronously, so we don't know what state the document is in
 switch (document.readyState) {

@@ -10,6 +10,9 @@ export function init_editor() {
     }
     monaco.editor.create(container, {
         value: 'console.log("Hello, world")',
-        language: 'rust'
+        language: 'rust',
+        minimap: { enabled: false },
+        lineNumbers: 'off',
+        scrollBeyondLastLine: false,
     });
 }

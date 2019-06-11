@@ -146,7 +146,13 @@ function get_ascii_data(data: Uint8Array): string {
 var nugget_id = 0;
 function get_nugget_text(nugget: any, depth: number): string {
     let value = new Array(depth + 1).join('  ');
-    value += `<span class=schema-nugget data-idx-start=${nugget.start} data-idx-len=${nugget.len} data-nugget-id=${nugget_id++}>${nugget.name}`;
+    value += `<span class=schema-nugget data-idx-start=${nugget.start} data-idx-len=${nugget.len} data-nugget-id=${nugget_id++}>`;
+    if (nugget.children.length > 0) {
+        value += `<span class="far fa-minus-square"></span> `;
+    } else {
+        value += '  ';
+    }
+    value += nugget.name;
     if (nugget.value) {
         value += `: ${nugget.value}`;
     }

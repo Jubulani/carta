@@ -28,8 +28,6 @@ pub fn init() {
 
 #[wasm_bindgen]
 pub fn apply_schema(name: &str, data: &[u8]) -> JsValue {
-    info!("Read new file: {}", name);
-    info!("Data size: {} bytes", data.len());
 
     let nugget = match get_schema() {
         Some(schema) => {

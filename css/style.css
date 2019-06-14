@@ -30,7 +30,7 @@ header {
     display: flex;
     justify-content: center;
     grid-area: main;
-    overflow: scroll;
+    overflow: auto;
 }
 
 div#file-upload-area {
@@ -48,12 +48,11 @@ div#schema-area {
     flex-grow: 1;
 }
 
-div#left-sidebar {
+div#sidebar {
     display:flex;
     flex-direction: column;
     width: 250px;
     line-height: 30px;
-    resize: horizontal;
     overflow: hidden;
 }
 
@@ -62,7 +61,7 @@ div#data-area {
     background: white;
     font-size: 14px;
     display: flex;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .sidebar-title {

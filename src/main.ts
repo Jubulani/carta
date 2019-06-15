@@ -20,7 +20,7 @@ switch (document.readyState) {
 
 function document_loaded() {
     addEventListeners();
-    update_schema_name();
+    //update_schema_name();
 }
 
 function addEventListeners() {
@@ -31,12 +31,12 @@ function addEventListeners() {
         console.error('Could not find file upload element');
     }
 
-    let schemaFileElem = document.getElementById('schema-file-upload');
+    /*let schemaFileElem = document.getElementById('schema-file-upload');
     if (schemaFileElem) {
         schemaFileElem.addEventListener('change', readSchemaFiles);
     } else {
-        console.error('Could not find file upload element');
-    }
+        console.error('Could not find schema file upload element');
+    }*/
 
     console.log('Event listeners added');
 }
@@ -293,7 +293,7 @@ function readSchemaFiles() {
                 let arr = new Uint8Array(res);
                 try {
                     load_schema(file.name, arr);
-                    update_schema_name();
+                    //update_schema_name();
                 }
                 catch (err) {
                     alert(err);
@@ -304,7 +304,7 @@ function readSchemaFiles() {
     }
 }
 
-function update_schema_name() {
+/*function update_schema_name() {
     let schema_name_elem = document.querySelector(".schema-name");
     if (schema_name_elem) {
         let name = get_schema_name();
@@ -312,7 +312,7 @@ function update_schema_name() {
     } else {
         console.error('Could not find schema-name element');
     }
-}
+}*/
 
 // Make me a module
 export default function () { }

@@ -44,14 +44,10 @@ div#file-upload-area {
     flex-grow: 1;
 }
 
-div#schema-area {
-    flex-grow: 1;
-}
-
 div#sidebar {
     display:flex;
     flex-direction: column;
-    width: 250px;
+    width: 400px;
     line-height: 30px;
     overflow: hidden;
 }
@@ -67,7 +63,8 @@ div#data-area {
 .sidebar-title {
     text-align: center;
     font-size: 20px;
-    background: #0087f7;
+    /*background: #0087f7;*/
+    font-weight: bold;
 }
 
 #file-upload,
@@ -120,5 +117,20 @@ div#file-upload-area label {
 }
 
 .editor {
-    width: 500px;
+    height: 80%;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.schema-button {
+    margin: 15px 15px 0 15px;
+    padding: 10px;
+    background-color: #008cff;
+    color: white;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.schema-button:hover {
+    background-color: #2fa2ff;
 }

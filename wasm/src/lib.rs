@@ -27,7 +27,7 @@ pub fn init() {
 }
 
 #[wasm_bindgen]
-pub fn apply_schema(name: &str, data: &[u8]) -> JsValue {
+pub fn apply_schema(data: &[u8]) -> JsValue {
 
     let nugget = match get_schema() {
         Some(schema) => {

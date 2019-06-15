@@ -54,7 +54,7 @@ function readFiles() {
                 let res = <ArrayBuffer>reader.result;
                 let arr = new Uint8Array(res);
                 try {
-                    let nugget = apply_schema(file.name, arr);
+                    let nugget = apply_schema(arr);
                     display_new_file(file.name, arr, nugget);
                 }
                 catch (err) {

@@ -5,7 +5,7 @@ export function append_div(name: string, parent_id: string): Element {
     if (parent) {
         parent.appendChild(new_div);
     } else {
-        alert('Could not find div: ' + parent_id);
+        console.error('Could not find div: ' + parent_id);
     }
     return new_div;
 }

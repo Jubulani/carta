@@ -1,9 +1,8 @@
 import { init, apply_schema, load_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
 import { append_div, append_div_with_class, get_closest_parent } from './carta_util';
-import { init_editor } from './editor';
+import { init_editor, resize } from './editor';
 
 init();
-init_editor();
 
 // We were called asynchronously, so we don't know what state the document is in
 switch (document.readyState) {
@@ -38,7 +37,35 @@ function addEventListeners() {
         console.error('Could not find schema file upload element');
     }*/
 
+    let newSchemaButton = document.getElementById('new-schema');
+    if (newSchemaButton) {
+        newSchemaButton.addEventListener('click', new_schema);
+    } else {
+        console.error('Could not find new schema button');
+    }
+
+    window.addEventListener("resize", resize);
+
     console.log('Event listeners added');
+}
+
+function new_schema() {
+    // Remove schema buttons
+    // Add editor element
+    // Init editor
+    let newSchemaButton = document.getElementById('new-schema');
+    if (newSchemaButton) {
+        newSchemaButton.remove();
+    }
+    let openSchemaButton = document.getElementById('open-schema');
+    if (openSchemaButton) {
+        openSchemaButton.remove();
+    }
+
+    let editorElem = append_div("editor-container", "sidebar");
+    editorElem.classList.add("editor");
+
+    init_editor();
 }
 
 function readFiles() {

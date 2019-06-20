@@ -1,5 +1,6 @@
 import { append_div, append_div_with_class, get_closest_parent } from './carta_util';
 import * as wasm from '../wasm/pkg/carta_wasm';
+import * as editor from './editor';
 
 export function init() {
     wasm.init();
@@ -29,16 +30,22 @@ function set_syntax_ok() {
     syntaxResultElem.textContent = "Ok";
     syntaxResultElem.classList.remove("syntax-error");
     syntaxResultElem.classList.add("syntax-ok");
+
+    editor.clear_model_markers();
 }
 
-function set_syntax_error(msg: string) {
+function set_syntax_error(error: any) {
     const syntaxResultElem = document.getElementById("syntax-results");
     if (!syntaxResultElem) {
         console.error("Could not find 'syntax-results' element");
         return;
     }
 
+    let msg = `Line ${error.line_no}: ${error.msg}`;
+
     syntaxResultElem.textContent = msg;
     syntaxResultElem.classList.remove("syntax-ok");
     syntaxResultElem.classList.add("syntax-error");
+
+    editor.set_marker_for_line(error.line_no, error.msg);
 }

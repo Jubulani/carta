@@ -62,3 +62,38 @@ function checkEditorContent() {
     const text = get_editor_text();
     schema.compile_schema("<unnamed>", text);
 }
+
+export function set_marker_for_line(line_no: number, msg: string) {
+    if (!editor) {
+        console.error("No current editor for markers");
+        return;
+    }
+
+    const marker_data = {
+        message: msg,
+        severity: monaco.MarkerSeverity.Error,
+        startLineNumber: line_no,
+        endLineNumber: line_no,
+        startColumn: 0,
+        endColumn: 100,
+    };
+    const model = editor.getModel();
+    if (!model) {
+        console.error("No current model found for markers");
+        return;
+    }
+    monaco.editor.setModelMarkers(model, "owner??", [marker_data]);
+}
+
+export function clear_model_markers() {
+    if (!editor) {
+        console.error("No current editor for markers");
+        return;
+    }
+    const model = editor.getModel();
+    if (!model) {
+        console.error("No current model found for markers");
+        return;
+    }
+    monaco.editor.setModelMarkers(model, "owner??", []);
+}

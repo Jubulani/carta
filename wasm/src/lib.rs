@@ -2,6 +2,7 @@ use std::str;
 
 use log::{info, warn, Level};
 use wasm_bindgen::prelude::*;
+use serde_derive::Serialize;
 
 use carta_schema::TSchema;
 
@@ -12,6 +13,11 @@ struct Schema {
     tschema: TSchema,
 }
 
+#[derive(Serialize)]
+struct SchemaError {
+    line_no: usize,
+    msg: String,
+}
 
 #[wasm_bindgen]
 pub fn init() {
@@ -50,9 +56,16 @@ pub fn load_schema(name: &str, data: &str) -> Result<(), JsValue> {
     match carta_schema::compile_schema_file(data) {
         Err(e) => {
             let msg = format!("Error compiling schema - {}", e);
-            warn!("Error, line {}, code: {}", e.line_no, e.code);
             warn!("{}", msg);
-            return Err(JsValue::from_str(&format!("{}", e)));
+
+            let js_err = SchemaError {
+                line_no: e.line_no,
+                msg: format!("{}", e.code),
+            };
+
+            //warn!("Error, line {}, code: {}", e.line_no, e.code);
+            // return Err(JsValue::from_str(&format!("{}", e)));
+            return Err(JsValue::from_serde(&js_err).unwrap());
         }
         Ok(schema) => {
             info!("Schema successfully compiled");

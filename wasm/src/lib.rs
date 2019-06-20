@@ -22,8 +22,6 @@ pub fn init() {
     console_log::init_with_level(Level::Trace).expect("error initializing log");
 
     info!("Carta backend init complete");
-
-    //info!("Memory: {:?}", wasm_bindgen::memory().dyn_into::<WebAssembly::Memory>().unwrap());
 }
 
 #[wasm_bindgen]
@@ -45,21 +43,14 @@ pub fn apply_schema(data: &[u8]) -> JsValue {
 }
 
 #[wasm_bindgen]
-pub fn load_schema(name: &str, data: &[u8]) -> Result<(), JsValue> {
+pub fn load_schema(name: &str, data: &str) -> Result<(), JsValue> {
     info!("Read new schema file: {}", name);
     info!("Data size: {} bytes", data.len());
-
-    let data = match str::from_utf8(data) {
-        Ok(d) => d,
-        Err(e) => {
-            warn!("Could not read schema file as utf-8: {}", e);
-            return Err(JsValue::from_str(&format!("{}", e)));
-        }
-    };
 
     match carta_schema::compile_schema_file(data) {
         Err(e) => {
             let msg = format!("Error compiling schema - {}", e);
+            warn!("Error, line {}, code: {}", e.line_no, e.code);
             warn!("{}", msg);
             return Err(JsValue::from_str(&format!("{}", e)));
         }

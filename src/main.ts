@@ -1,8 +1,9 @@
-import { init, apply_schema, load_schema, get_schema_name } from '../wasm/pkg/carta_wasm';
-import { append_div, append_div_with_class, get_closest_parent } from './carta_util';
-import { init_editor, resize } from './editor';
 
-init();
+import { append_div, append_div_with_class, get_closest_parent } from './carta_util';
+import * as editor from './editor';
+import * as schema from './schema';
+
+schema.init();
 
 // We were called asynchronously, so we don't know what state the document is in
 switch (document.readyState) {
@@ -19,7 +20,6 @@ switch (document.readyState) {
 
 function document_loaded() {
     addEventListeners();
-    //update_schema_name();
 }
 
 function addEventListeners() {
@@ -37,7 +37,7 @@ function addEventListeners() {
         console.error('Could not find new schema button');
     }
 
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", editor.resize);
 
     console.log('Event listeners added');
 }
@@ -53,14 +53,25 @@ function new_schema() {
         openSchemaButton.remove();
     }
 
+    let parent = document.getElementById("sidebar");
+    if (!parent) {
+        console.error("Could not find div with id: 'sidebar'");
+        return;
+    }
+
     // Add editor element
-    let editorElem = append_div("editor-container", "sidebar");
-    editorElem.classList.add("editor");
+    let editorElem = append_div_with_class(parent, "editor");
+    editorElem.id = "editor-container";
 
-    init_editor();
+    // And schema status element
+    let statusElem = append_div_with_class(parent, "schema-status");
+    statusElem.textContent = "Syntax: ";
 
-    // Parse the default schema the editor is created with
+    let syntaxResults = document.createElement("span");
+    syntaxResults.id = "syntax-results";
+    statusElem.appendChild(syntaxResults);
 
+    editor.init_editor();
 }
 
 function readFiles() {
@@ -75,9 +86,10 @@ function readFiles() {
             reader.onloadend = function () {
                 let res = <ArrayBuffer>reader.result;
                 let arr = new Uint8Array(res);
+
                 try {
-                    let nugget = apply_schema(arr);
-                    display_new_file(file.name, arr, nugget);
+                    let nugget = schema.apply_schema(arr);
+                    display_new_file(name, arr, nugget);
                 }
                 catch (err) {
                     alert(err);
@@ -307,7 +319,7 @@ function highlight_asciidata(start: number, len: number, parent: Element) {
     ascii_elem.innerHTML = `${pre}<span class="highlight">${highlight}</span>${post}`;
 }
 
-function readSchemaFiles() {
+/* function readSchemaFiles() {
     let input = <HTMLInputElement>document.querySelector("#schema-file-upload");
     let files = input.files;
 
@@ -329,7 +341,7 @@ function readSchemaFiles() {
             reader.readAsArrayBuffer(file);
         }
     }
-}
+}*/
 
 // Make me a module
 export default function () {}

@@ -1,6 +1,7 @@
 import 'monaco-editor/esm/vs/editor/browser/controller/coreCommands.js';
 import 'monaco-editor/esm/vs/editor/contrib/find/findController.js';
 import * as monaco from '../node_modules/monaco-editor/esm/vs/editor/editor.api';
+import * as schema from './schema';
 
 var editor: monaco.editor.IStandaloneCodeEditor | null = null;
 const schema_default_text = `// The root struct encloses the
@@ -25,11 +26,21 @@ export function init_editor() {
         lineNumbersMinChars: 3
     });
     editor.onDidChangeModelContent(onContentChange);
+
+    schema.compile_schema("<unnamed>", schema_default_text);
 }
 
 export function resize() {
     if (editor) {
         editor.layout();
+    }
+}
+
+export function get_editor_text(): string {
+    if (editor) {
+        return editor.getValue();
+    } else {
+        return "";
     }
 }
 
@@ -41,10 +52,13 @@ function onContentChange(e: monaco.editor.IModelContentChangedEvent) {
         console.log('Reset timeout');
         window.clearTimeout(timeoutId);
     }
-    timeoutId = window.setTimeout(checkEditorContent, 500);
+    timeoutId = window.setTimeout(checkEditorContent, 1000);
 }
 
 function checkEditorContent() {
     timeoutId = null;
     console.log('Check editor content');
+
+    const text = get_editor_text();
+    schema.compile_schema("<unnamed>", text);
 }

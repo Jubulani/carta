@@ -134,3 +134,18 @@ div#file-upload-area label {
 .schema-button:hover {
     background-color: #2fa2ff;
 }
+
+.schema-status {
+    line-height: 16px;
+    font-size: 12px;
+    color: gray;
+    margin: 0 10px 10px 10px;
+}
+
+.syntax-ok {
+    color: green;
+}
+
+.syntax-error {
+    color: red;
+}

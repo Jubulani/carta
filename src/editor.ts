@@ -3,6 +3,11 @@ import 'monaco-editor/esm/vs/editor/contrib/find/findController.js';
 import * as monaco from '../node_modules/monaco-editor/esm/vs/editor/editor.api';
 
 var editor: monaco.editor.IStandaloneCodeEditor | null = null;
+const schema_default_text = `// The root struct encloses the
+// entire file
+struct root {
+    sample_elem: uint8,
+}`
 
 export function init_editor() {
     let container = document.getElementById('editor-container');
@@ -11,7 +16,7 @@ export function init_editor() {
         return;
     }
     editor = monaco.editor.create(container, {
-        value: 'console.log("Hello, world")',
+        value: schema_default_text,
         language: 'rust',
         minimap: { enabled: false },
         lineNumbers: 'on',

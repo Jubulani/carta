@@ -30,13 +30,6 @@ function addEventListeners() {
         console.error('Could not find file upload element');
     }
 
-    /*let schemaFileElem = document.getElementById('schema-file-upload');
-    if (schemaFileElem) {
-        schemaFileElem.addEventListener('change', readSchemaFiles);
-    } else {
-        console.error('Could not find schema file upload element');
-    }*/
-
     let newSchemaButton = document.getElementById('new-schema');
     if (newSchemaButton) {
         newSchemaButton.addEventListener('click', new_schema);
@@ -51,8 +44,6 @@ function addEventListeners() {
 
 function new_schema() {
     // Remove schema buttons
-    // Add editor element
-    // Init editor
     let newSchemaButton = document.getElementById('new-schema');
     if (newSchemaButton) {
         newSchemaButton.remove();
@@ -62,10 +53,14 @@ function new_schema() {
         openSchemaButton.remove();
     }
 
+    // Add editor element
     let editorElem = append_div("editor-container", "sidebar");
     editorElem.classList.add("editor");
 
     init_editor();
+
+    // Parse the default schema the editor is created with
+
 }
 
 function readFiles() {
@@ -89,6 +84,12 @@ function readFiles() {
                 }
             }
             reader.readAsArrayBuffer(file);
+        }
+
+        // Remove the large 'open file' element
+        let fileUploadArea = document.getElementById('file-upload-area');
+        if (fileUploadArea) {
+            fileUploadArea.remove();
         }
     }
 }
@@ -320,7 +321,6 @@ function readSchemaFiles() {
                 let arr = new Uint8Array(res);
                 try {
                     load_schema(file.name, arr);
-                    //update_schema_name();
                 }
                 catch (err) {
                     alert(err);
@@ -331,15 +331,5 @@ function readSchemaFiles() {
     }
 }
 
-/*function update_schema_name() {
-    let schema_name_elem = document.querySelector(".schema-name");
-    if (schema_name_elem) {
-        let name = get_schema_name();
-        schema_name_elem.textContent = name;
-    } else {
-        console.error('Could not find schema-name element');
-    }
-}*/
-
 // Make me a module
-export default function () { }
+export default function () {}

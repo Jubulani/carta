@@ -12,10 +12,10 @@ module.exports = {
     module: {
         rules: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
-            { test: /\.ts$/, loader: "ts-loader" },
+            { test: /\.ts$/, loader: 'ts-loader' },
             {
                 test: /\.wasm$/,
-                type: "webassembly/experimental"
+                type: 'webassembly/experimental'
             },
             {
                 test: /\.css$/,
@@ -29,7 +29,7 @@ module.exports = {
             { from: 'css', to: '' },
         ]),
         new WasmPackPlugin({
-            crateDirectory: path.resolve(__dirname, "wasm"),
+            crateDirectory: path.resolve(__dirname, 'wasm'),
         }),
         new MonacoWebpackPlugin({
             languages: ['rust'],

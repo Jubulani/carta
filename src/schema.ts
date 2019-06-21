@@ -1,6 +1,7 @@
 import { append_div, append_div_with_class, get_closest_parent } from './carta_util';
 import * as wasm from '../wasm/pkg/carta_wasm';
 import * as editor from './editor';
+import * as binfiles from './binfiles';
 
 export function init() {
     wasm.init();
@@ -10,6 +11,7 @@ export function compile_schema(name: string, schema_data: string) {
     try {
         wasm.load_schema(name, schema_data);
         set_syntax_ok();
+        binfiles.apply_new_schema();
     }
     catch (err) {
         set_syntax_error(err);

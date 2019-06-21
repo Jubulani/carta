@@ -149,3 +149,7 @@ div#file-upload-area label {
 .syntax-error {
     color: red;
 }
+
+.hidden {
+    display: none;
+}

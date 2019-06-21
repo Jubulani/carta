@@ -31,6 +31,13 @@ function addEventListeners() {
         console.error('Could not find file upload element');
     }
 
+    let schemaElem = document.getElementById('open-schema-input');
+    if (schemaElem) {
+        schemaElem.addEventListener('change', readSchemaFiles);
+    } else {
+        console.error('Could not find schema file upload input');
+    }
+
     let newSchemaButton = document.getElementById('new-schema');
     if (newSchemaButton) {
         newSchemaButton.addEventListener('click', new_schema);
@@ -38,12 +45,21 @@ function addEventListeners() {
         console.error('Could not find new schema button');
     }
 
-    window.addEventListener("resize", editor.resize);
+    let openSchemaButton = document.getElementById('open-schema');
+    if (openSchemaButton) {
+        openSchemaButton.addEventListener('click', open_schema);
+    } else {
+        console.error('Could not find open schema button');
+    }
 
-    console.log('Event listeners added');
+    window.addEventListener("resize", editor.resize);
 }
 
 function new_schema() {
+    init_editor(null);
+}
+
+function init_editor(default_data: string | null) {
     // Remove schema buttons
     let newSchemaButton = document.getElementById('new-schema');
     if (newSchemaButton) {
@@ -72,7 +88,18 @@ function new_schema() {
     syntaxResults.id = "syntax-results";
     statusElem.appendChild(syntaxResults);
 
-    editor.init_editor();
+    editor.init_editor(default_data);
+}
+
+function open_schema() {
+    let openSchemaInput = document.getElementById('open-schema-input');
+    if (!openSchemaInput) {
+        console.error('Could not find open schema input');
+        return;
+    }
+
+    // Simulate a click on the hidden input, to open the 'choose file' dialog
+    openSchemaInput.click();
 }
 
 function readFiles() {
@@ -99,29 +126,27 @@ function readFiles() {
     }
 }
 
-/* function readSchemaFiles() {
-    let input = <HTMLInputElement>document.querySelector("#schema-file-upload");
+function readSchemaFiles() {
+    let input = <HTMLInputElement>document.getElementById("open-schema-input");
     let files = input.files;
 
     if (files) {
-        for (let i = 0; i < files.length; ++i) {
-            let file = files[i];
-            let reader = new FileReader();
-
-            reader.onloadend = function () {
-                let res = <ArrayBuffer>reader.result;
-                let arr = new Uint8Array(res);
-                try {
-                    load_schema(file.name, arr);
-                }
-                catch (err) {
-                    alert(err);
-                }
-            }
-            reader.readAsArrayBuffer(file);
+        if (files.length != 1) {
+            // How did this happen?  It's not a multi input
+            console.error('Must specify only one file');
+            return;
         }
+
+        let file = files[0];
+        let reader = new FileReader();
+
+        reader.onloadend = function () {
+            let res = <string>reader.result;
+            init_editor(res);
+        }
+        reader.readAsText(file);
     }
-}*/
+}
 
 // Make me a module
-export default function () {}
+export default function () { }

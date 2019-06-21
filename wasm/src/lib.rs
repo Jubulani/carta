@@ -1,6 +1,6 @@
 use std::str;
 
-use log::{info, warn, Level};
+use log::{info, Level};
 use wasm_bindgen::prelude::*;
 use serde_derive::Serialize;
 
@@ -32,10 +32,8 @@ pub fn init() {
 
 #[wasm_bindgen]
 pub fn apply_schema(data: &[u8]) -> JsValue {
-
     let nugget = match get_schema() {
         Some(schema) => {
-            info!("Apply schema to file");
             carta_schema::apply_schema(&schema.tschema, data)
         },
         None => {
@@ -43,8 +41,6 @@ pub fn apply_schema(data: &[u8]) -> JsValue {
             return JsValue::undefined();
         }
     };
-
-    info!("Have nugget: {:?}", nugget);
     JsValue::from_serde(&nugget).unwrap()
 }
 

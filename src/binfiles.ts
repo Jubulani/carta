@@ -6,10 +6,7 @@ class BinFile {
     file_data_div: Element;
     constructor(file_input: ArrayBuffer) {
         this.data = new Uint8Array(file_input);
-        console.debug(`File constructor.  Data = ${this.data}`)
-
         this.file_data_div = display_file(this.data);
-
         this.apply_schema();
     }
 

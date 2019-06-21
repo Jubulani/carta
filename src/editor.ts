@@ -10,14 +10,19 @@ struct root {
     sample_elem: uint8,
 }`
 
-export function init_editor() {
+export function init_editor(initial_value: string | null) {
+    // Use the default text, unless we've been provided with an alternative
+    if (!initial_value) {
+        initial_value = schema_default_text;
+    }
+
     let container = document.getElementById('editor-container');
     if (!container) {
         console.error('Could not find editor-container');
         return;
     }
     editor = monaco.editor.create(container, {
-        value: schema_default_text,
+        value: initial_value,
         language: 'rust',
         minimap: { enabled: false },
         lineNumbers: 'on',
@@ -27,7 +32,7 @@ export function init_editor() {
     });
     editor.onDidChangeModelContent(onContentChange);
 
-    schema.compile_schema("<unnamed>", schema_default_text);
+    schema.compile_schema("<unnamed>", initial_value);
 }
 
 export function resize() {

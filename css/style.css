@@ -84,7 +84,7 @@ div#file-upload-area label {
 
 .file-data {
     display: flex;
-    font-family: 'Courier New', monospace;
+    font-family: Consolas, "Courier New", monospace;
 }
 
 .filename {
@@ -112,7 +112,7 @@ div#file-upload-area label {
 }
 
 .highlight {
-    color: rgb(68, 203, 102);
+    /*color: rgb(68, 203, 102);*/
     font-weight: bold;
 }
 

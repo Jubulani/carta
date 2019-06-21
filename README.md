@@ -2,6 +2,8 @@
 
 Reverse engineer binary files
 
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=Jubulani/carta)](https://dependabot.com)
+
 ## Build instructions
 1. Clone the repo
 2. Install a newish version of *stable* rust (v1.31+)

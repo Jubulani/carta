@@ -50,25 +50,15 @@ pub fn apply_schema(data: &[u8]) -> JsValue {
 
 #[wasm_bindgen]
 pub fn load_schema(name: &str, data: &str) -> Result<(), JsValue> {
-    info!("Read new schema file: {}", name);
-    info!("Data size: {} bytes", data.len());
-
     match carta_schema::compile_schema_file(data) {
         Err(e) => {
-            let msg = format!("Error compiling schema - {}", e);
-            warn!("{}", msg);
-
             let js_err = SchemaError {
                 line_no: e.line_no,
                 msg: format!("{}", e.code),
             };
-
-            //warn!("Error, line {}, code: {}", e.line_no, e.code);
-            // return Err(JsValue::from_str(&format!("{}", e)));
             return Err(JsValue::from_serde(&js_err).unwrap());
         }
         Ok(schema) => {
-            info!("Schema successfully compiled");
             set_schema(name, schema);
         }
     }

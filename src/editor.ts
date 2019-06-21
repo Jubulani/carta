@@ -49,15 +49,15 @@ function onContentChange(e: monaco.editor.IModelContentChangedEvent) {
     //console.debug('Change model content!');
 
     if (timeoutId) {
-        console.log('Reset timeout');
         window.clearTimeout(timeoutId);
     }
     timeoutId = window.setTimeout(checkEditorContent, 1000);
+
+    schema.set_syntax_unknown();
 }
 
 function checkEditorContent() {
     timeoutId = null;
-    console.log('Check editor content');
 
     const text = get_editor_text();
     schema.compile_schema("<unnamed>", text);

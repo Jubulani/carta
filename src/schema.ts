@@ -20,6 +20,18 @@ export function apply_schema(arr: Uint8Array): any {
     return wasm.apply_schema(arr);
 }
 
+export function set_syntax_unknown() {
+    const syntaxResultElem = document.getElementById("syntax-results");
+    if (!syntaxResultElem) {
+        console.error("Could not find 'syntax-results' element");
+        return;
+    }
+
+    syntaxResultElem.textContent = "checking...";
+    syntaxResultElem.classList.remove("syntax-error");
+    syntaxResultElem.classList.remove("syntax-ok");
+}
+
 function set_syntax_ok() {
     const syntaxResultElem = document.getElementById("syntax-results");
     if (!syntaxResultElem) {
@@ -41,11 +53,16 @@ function set_syntax_error(error: any) {
         return;
     }
 
-    let msg = `Line ${error.line_no}: ${error.msg}`;
+    let msg;
+    if (error.line_no > 0) {
+        msg = `Line ${error.line_no}: ${error.msg}`;
+        editor.set_marker_for_line(error.line_no, error.msg);
+    } else {
+        msg = error.msg;
+        editor.clear_model_markers();
+    }
 
     syntaxResultElem.textContent = msg;
     syntaxResultElem.classList.remove("syntax-ok");
     syntaxResultElem.classList.add("syntax-error");
-
-    editor.set_marker_for_line(error.line_no, error.msg);
 }

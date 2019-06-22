@@ -113,7 +113,7 @@ function readFiles() {
 
             reader.onloadend = function () {
                 let res = <ArrayBuffer>reader.result;
-                binfiles.new_file(res);
+                binfiles.new_file(file.name, res);
             }
             reader.readAsArrayBuffer(file);
         }

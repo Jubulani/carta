@@ -3,10 +3,15 @@ import * as schema from './schema';
 
 class BinFile {
     data: Uint8Array;
+    filename: string;
     file_data_div: Element;
-    constructor(file_input: ArrayBuffer) {
-        this.data = new Uint8Array(file_input);
-        this.file_data_div = display_file(this.data);
+    unique_id: string;
+
+    constructor(filename: string, file_data: ArrayBuffer, file_idx: number) {
+        this.data = new Uint8Array(file_data);
+        this.filename = filename;
+        this.unique_id = `file-${file_idx}`;
+        this.file_data_div = display_file(this.filename, this.data, this.unique_id);
         this.apply_schema();
     }
 
@@ -31,8 +36,8 @@ class BinFile {
 
 var all_files: BinFile[] = [];
 
-export function new_file(file_input: ArrayBuffer) {
-    let file = new BinFile(file_input);
+export function new_file(filename: string, file_data: ArrayBuffer) {
+    let file = new BinFile(filename, file_data, all_files.length);
     all_files.push(file);
 }
 
@@ -42,12 +47,12 @@ export function apply_new_schema() {
     }
 }
 
-function display_file(data: Uint8Array): Element {
-    let file_div = append_div(name, "data-area");
+function display_file(filename: string, data: Uint8Array, unique_id: string): Element {
+    let file_div = append_div(unique_id, "data-area");
     file_div.classList.add("file-container");
 
     let name_div = append_div_with_class(file_div, "filename");
-    name_div.textContent = name;
+    name_div.textContent = filename;
 
     let file_data_div = append_div_with_class(file_div, "file-data");
     let hex_data_div = append_div_with_class(file_data_div, "hex-data");

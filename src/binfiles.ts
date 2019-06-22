@@ -146,18 +146,17 @@ function get_nugget_text(nugget: any, depth: number): string {
 
 function get_schema_data(nugget: any, depth: number): string {
     let schema_data = get_nugget_text(nugget, depth);
-    for (let i = 0; i < nugget.children.length; ++i) {
-        schema_data += get_schema_data(nugget.children[i], depth + 1);
-    }
-    return schema_data;
+    return nugget.children.reduce(
+        (accu: string, val: any) => accu += get_schema_data(val, depth + 1),
+        schema_data,
+    );
 }
 
 function get_root_schema_data(nugget: any): string {
-    let schema_data = '';
-    for (let i = 0; i < nugget.children.length; ++i) {
-        schema_data += get_schema_data(nugget.children[i], 0);
-    }
-    return schema_data;
+    return nugget.children.reduce(
+        (accu: string, val: any) => accu += get_schema_data(val, 0),
+        ''
+    );
 }
 
 function update_schema_event_listeners() {

@@ -94,15 +94,19 @@ div#file-upload-area label {
 
 .hex-data,
 .ascii-data,
-.schema-data {
+.schema {
     padding-left: 10px;
     padding-right: 10px;
 }
 
 .hex-data,
 .ascii-data,
-.schema-data {
+.schema {
     white-space: pre;
+}
+
+.schema {
+    display: flex;
 }
 
 .schema-add-button {

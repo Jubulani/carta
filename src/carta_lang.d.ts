@@ -1,0 +1,1 @@
+export function init_monarch(): void;

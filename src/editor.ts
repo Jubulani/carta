@@ -2,6 +2,7 @@ import 'monaco-editor/esm/vs/editor/browser/controller/coreCommands.js';
 import 'monaco-editor/esm/vs/editor/contrib/find/findController.js';
 import * as monaco from '../node_modules/monaco-editor/esm/vs/editor/editor.api';
 import * as schema from './schema';
+import * as carta_lang from './carta_lang';
 
 var editor: monaco.editor.IStandaloneCodeEditor | null = null;
 const schema_default_text = `// The root struct encloses the
@@ -11,6 +12,8 @@ struct root {
 }`
 
 export function init_editor(initial_value: string | null) {
+    carta_lang.init_monarch();
+
     // Use the default text, unless we've been provided with an alternative
     if (!initial_value) {
         initial_value = schema_default_text;
@@ -23,7 +26,7 @@ export function init_editor(initial_value: string | null) {
     }
     editor = monaco.editor.create(container, {
         value: initial_value,
-        language: 'rust',
+        language: 'carta',
         minimap: { enabled: false },
         lineNumbers: 'on',
         scrollBeyondLastLine: false,
@@ -48,6 +51,7 @@ export function get_editor_text(): string {
         return "";
     }
 }
+
 
 var timeoutId: number | null;
 function onContentChange(e: monaco.editor.IModelContentChangedEvent) {

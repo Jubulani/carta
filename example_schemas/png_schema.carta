@@ -1,0 +1,38 @@
+// The root struct encloses the
+// entire file
+struct root {
+    png_signature: Signature,
+    ihdr_chunk: IHDRChunk,
+    chunk: Chunk,
+    chunk: Chunk,
+    chunk: Chunk,
+    chunk: Chunk,
+    chunk: Chunk,
+}
+
+struct Signature {
+    first_byte: uint8,
+    png_marker: [ascii; 3],
+    remaining_bytes: [uint8; 4]
+}
+
+struct IHDRChunk {
+    chunk_length: uint32_be,
+    chunk_type: [ascii; 4],
+    image_width: uint32_be,
+    image_height: uint32_be,
+    bit_depth: uint8,
+    colour_type: uint8,
+    compression_method: uint8,
+    filter_method: uint8,
+    interlace_method: uint8,
+    crc: uint32_be
+}
+
+struct Chunk {
+    chunk_length: uint32_be,
+    chunk_type: [ascii; 4],
+    chunk_data: [uint8; chunk_length],
+    crc: uint32_be,
+}
+

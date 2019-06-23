@@ -9,7 +9,13 @@ export function init() {
 
 export function compile_schema(name: string, schema_data: string) {
     try {
+        const date_before = Date.now();
         wasm.load_schema(name, schema_data);
+
+        const date_after = Date.now();
+        const elapsed = date_after - date_before;
+        console.info(`Schema compiled in ${elapsed / 1000} seconds`)
+
         set_syntax_ok();
         binfiles.apply_new_schema();
     }
@@ -18,8 +24,16 @@ export function compile_schema(name: string, schema_data: string) {
     }
 }
 
-export function apply_schema(arr: Uint8Array): any {
-    return wasm.apply_schema(arr);
+export function apply_schema(name: string, arr: Uint8Array): any {
+    const date_before = Date.now();
+    const nugget = wasm.apply_schema(arr);
+
+    const date_after = Date.now();
+    const elapsed = date_after - date_before;
+
+    console.info(`Schema applied to ${name} in ${elapsed / 1000} seconds`)
+
+    return nugget;
 }
 
 export function set_syntax_unknown() {

@@ -18,7 +18,7 @@ class BinFile {
 
     apply_schema() {
         try {
-            this.nugget = schema.apply_schema(this.data);
+            this.nugget = schema.apply_schema(this.filename, this.data);
             if (this.nugget) {
                 set_nugget_ids(this.nugget, 0);
             }

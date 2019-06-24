@@ -1,8 +1,10 @@
 # carta
 
-Reverse engineer binary files
+Binary file explorer and visualiser.  Try it [here](https://jubulani.github.io/)
 
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=Jubulani/carta)](https://dependabot.com)
+___
+![screenshot](screenshot.png)
 
 ## Build instructions
 1. Clone the repo

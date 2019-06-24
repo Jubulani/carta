@@ -2,11 +2,11 @@
 
 Carta is a binary data explorer and visualiser.  Create a schema to explore the structure of binary data.
 
-Runs 100% in the browser, written in Rust, Webassemby and Typescript.  Try it [here](https://jubulani.github.io/)
+Runs 100% in the browser, written in Rust, WebAssembly and Typescript.  Try it [here](https://jubulani.github.io/)
 
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=Jubulani/carta)](https://dependabot.com)
 
-![screenshot](screenshot.png)
+[![screenshot](screenshot.png)](https://jubulani.github.io/)
 
 ## Build instructions
 1. Clone the repo

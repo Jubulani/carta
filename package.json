@@ -16,7 +16,7 @@
     "devDependencies": {
         "@wasm-tool/wasm-pack-plugin": "github:wasm-tool/wasm-pack-plugin",
         "copy-webpack-plugin": "^5.1.1",
-        "css-loader": "^3.6.0",
+        "css-loader": "^5.0.0",
         "style-loader": "^1.2.1",
         "ts-loader": "^7.0.5",
         "typescript": "^3.9.5",
